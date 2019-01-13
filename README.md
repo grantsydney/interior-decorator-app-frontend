@@ -1,3 +1,47 @@
+findCurrentFurniture() {
+  return this.state.furniture.find(f =>{
+    return f.id === this.state.clickedFurnitureId
+  })
+  this.setState({
+    chosenFurniture: [...]
+  })
+}
+
+<div className="mock-room" style={{border:"1px solid black",width:this.props.findCurrentRoom?`${this.props.findCurrentRoom.dimension1}px`:null,height:this.props.findCurrentRoom?`${this.props.findCurrentRoom.dimension2}px`:null,margin:'auto'}}>
+<h3>Mock Room</h3>
+<div>
+
+<div>
+
+      <p>Dimension 1: {this.props.findCurrentRoom ? this.props.findCurrentRoom.dimension1 : null}</p>
+      <p>Dimension 2: {this.props.findCurrentRoom ? this.props.findCurrentRoom.dimension2 : null}</p>
+
+      </div>
+
+
+      {this.props.findCurrentFurniture ?
+      <h3>Mock Room</h3>
+      <div>
+      {this.props.findCurrentFurniture ?   <div className="parent" style={{position:"relative",border:"1px solid black",width:this.props.findCurrentRoom?`${this.props.findCurrentRoom.dimension1}px`:null,height:this.props.findCurrentRoom?`${this.props.findCurrentRoom.dimension2}px`:null,margin:'auto'}} id={this.props.findCurrentFurniture.name}><Draggable
+                    defaultClassName={`${this.props.findCurrentFurniture.name}`}
+                   onDrag={this.handleDrag}
+                      bounds="parent"
+                      axis="both"
+                      handle={`.${this.props.findCurrentFurniture.name}`}
+                      defaultPosition={{x: 0, y: 0}}
+                      scale={1}
+                      onStart={this.handleStart}
+                      onDrag={this.handleDrag}
+                      onStop={this.handleStop}
+                      >
+
+                        <img src={`./images/furniture_sketches/${this.props.findCurrentFurniture.img_sketch}`} alt={this.props.findCurrentFurniture.name}/>
+
+                    </Draggable></div> : null}
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

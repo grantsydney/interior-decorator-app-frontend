@@ -15,7 +15,10 @@ class RoomIndex extends Component {
     furniture: [],
     clickedRoomId: '',
     clickedFurnitureId:'',
-    term: ''
+    term: '',
+    chosenFurniture: [{id: 2, name: "Chair", category: "seating", description: "glossy red finish", color: "red", img: "molded-plastic-wire-base-side-chair.png",
+img_sketch: "molded-plastic-wire-base-side-chair-sketch.png", dimension1: 18,
+dimension2: 22}]
   }
 
   //fetch room data and set state
@@ -60,10 +63,37 @@ class RoomIndex extends Component {
   getFurnitureId = clickedFurnitureId => {
     this.setState({
       clickedFurnitureId: clickedFurnitureId
-    }, ()=>console.log('clicked furniture id is',clickedFurnitureId))
+    },()=>console.log("clicked furniture id is",this.state.clickedFurnitureId))
   }
 
+  //find furniture object with the id that matches the clickedFurnitureId
+  findCurrentFurniture() {
+    return this.state.furniture.find(f =>{
+      return f.id === this.state.clickedFurnitureId
+    })
+  }
+    // let clickedFurniture = this.state.furniture.find(f =>{
+    //    return f.id === this.state.clickedFurnitureId
+    // })
+    // this.setState({
+    //   chosenFurniture: [...this.state.chosenFurniture, clickedFurniture]
+    // })
+    // if (this.state.clickedFurnitureId){
+    //   let clickedFurniture = this.state.furniture.map(f =>{
+    //     // debugger
+    //      return f.id === clickedFurnitureId
+    //   })
+    // }
+
+    // this.setState({
+    //   chosenFurniture: [...this.state.chosenFurniture, clickedFurniture]
+    // },()=>console.log(this.state.chosenFurniture))
+
+
+
+
 render() {
+  // debugger
   const filteredFurniture = this.state.furniture.filter(f => {
   return f.name.toLowerCase().includes(this.state.term.toLowerCase()) || f.color.toLowerCase().includes(this.state.term.toLowerCase())
 })
@@ -78,9 +108,11 @@ render() {
       </div>
 
       <RoomForm addRoom={this.addRoom}/>
-      <RoomContainer rooms={this.state.rooms} currentRoom={this.state.clickedRoomId} findCurrentRoom={this.findCurrentRoom()} />
+      <RoomContainer rooms={this.state.rooms} currentRoom={this.state.clickedRoomId} currentFurniture={this.state.clickedFurnitureId} findCurrentRoom={this.findCurrentRoom()}
+      findCurrentFurniture={this.findCurrentFurniture()} chosenFurniture={this.state.chosenFurniture}/>
       <Search onSearchChange={this.handleSearch} open={false} />
-      <AllFurnitureContainer getFurnitureId={this.getFurnitureId} allFurniture={filteredFurniture}/>
+      <AllFurnitureContainer getFurnitureId={this.getFurnitureId} allFurniture={filteredFurniture}
+      clickedFurnitureId={this.state.clickedFurnitureId}/>
 
 
 

@@ -3,6 +3,8 @@ import { Card } from "semantic-ui-react";
 
 const FurnitureCard = props => {
 
+
+
   // console.log(props);
   return (
     <Card>
