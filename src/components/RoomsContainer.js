@@ -13,18 +13,6 @@ class RoomContainer extends Component {
 
   state={
     furniture: [
-      {
-        name: "random-light",
-        deltaPosition: {
-          x: 0, y: 0
-        }
-      },
-      {
-        name: "saarinen-round-dining-table",
-        deltaPosition: {
-          x: 0, y: 0
-        }
-      },
     {  name: "Chair",
       deltaPosition: {
         x: 0, y: 0
@@ -37,8 +25,8 @@ class RoomContainer extends Component {
     // let foundFurniture = this.state.furniture.find(f => ui.node.classList[0])
     const newFurnitureData = this.state.furniture.map(f => {
 
-      if(ui.node.parentElement.id === f.name){
-
+      if(ui.node.classList[0] === f.name){
+        //ui.node.parentElement.id DIDN'T WORK
         return {...f, deltaPosition: {
           x: f.deltaPosition.x + ui.deltaX,
           y: f.deltaPosition.y + ui.deltaY,
@@ -48,7 +36,7 @@ class RoomContainer extends Component {
     })
     // console.log("state is: ", this.state.furniture)
     // debugger
-    this.setState({ furniture: newFurnitureData })
+    this.setState({ furniture: newFurnitureData }, ()=>console.log(this.state.furniture))
 
   }
 
@@ -99,6 +87,8 @@ class RoomContainer extends Component {
                     </Draggable> : null}
 
       </div>
+      <button onClick={()=>this.props.saveFurniturePiece(this.props.currentFurniture, this.props.currentRoom, 20, 30)}>Save</button>
+
       </div>
 
     )

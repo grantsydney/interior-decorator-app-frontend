@@ -89,14 +89,43 @@ dimension2: 22}]
     //   chosenFurniture: [...this.state.chosenFurniture, clickedFurniture]
     // },()=>console.log(this.state.chosenFurniture))
 
+    addPiece = (item) => {
+  this.setState({
+    chosenFurniture: [item, ...this.state.chosenFurniture]
+  })
+}
+
+    saveFurniturePiece = (clickedFurnitureId, clickedRoomId, xCoord, yCoord) => {
+      //onClick of save button, creates POST request to roomFurniture table with all 4 parameters
+
+      //POST route to user_furnitures
+      //api/v1/users/:user_id/furnitures
+      // debugger
+    fetch("http://localhost:3000/api/v1/users/1/furnitures", {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        room_id: clickedRoomId,
+        furniture_id: clickedFurnitureId,
+        x_coord: xCoord,
+        y_coord: yCoord
+      })
+    })
+
+      .then(r=>r.json())
+      .then(item => this.addPiece(item)
+    )
+
+    }
+
 
 
 
 render() {
   // debugger
-  const filteredFurniture = this.state.furniture.filter(f => {
-  return f.name.toLowerCase().includes(this.state.term.toLowerCase()) || f.color.toLowerCase().includes(this.state.term.toLowerCase())
-})
+//   const filteredFurniture = this.state.furniture.filter(f => {
+//   return f.name.toLowerCase().includes(this.state.term.toLowerCase()) || f.color.toLowerCase().includes(this.state.term.toLowerCase())
+// })
   return(
     <div>
       <h1>RoomIndex</h1>
@@ -109,9 +138,9 @@ render() {
 
       <RoomForm addRoom={this.addRoom}/>
       <RoomContainer rooms={this.state.rooms} currentRoom={this.state.clickedRoomId} currentFurniture={this.state.clickedFurnitureId} findCurrentRoom={this.findCurrentRoom()}
-      findCurrentFurniture={this.findCurrentFurniture()} chosenFurniture={this.state.chosenFurniture}/>
+      findCurrentFurniture={this.findCurrentFurniture()} chosenFurniture={this.state.chosenFurniture} saveFurniturePiece={this.saveFurniturePiece}/>
       <Search onSearchChange={this.handleSearch} open={false} />
-      <AllFurnitureContainer getFurnitureId={this.getFurnitureId} allFurniture={filteredFurniture}
+      <AllFurnitureContainer getFurnitureId={this.getFurnitureId} allFurniture={this.state.furniture}
       clickedFurnitureId={this.state.clickedFurnitureId}/>
 
 
