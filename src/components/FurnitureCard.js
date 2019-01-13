@@ -6,7 +6,7 @@ const FurnitureCard = props => {
   // console.log(props);
   return (
     <Card>
-      <div>
+      <div onClick={()=>props.getFurnitureId(props.furniture.id)}>
       <span className="tooltip">
         <h3>FurnitureCard</h3>
           <p>{props.furniture.name}</p>

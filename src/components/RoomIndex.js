@@ -14,6 +14,7 @@ class RoomIndex extends Component {
     rooms: [],
     furniture: [],
     clickedRoomId: '',
+    clickedFurnitureId:'',
     term: ''
   }
 
@@ -35,6 +36,13 @@ class RoomIndex extends Component {
   getRoomId = clickedRoomId => {
     this.setState({
       clickedRoomId: clickedRoomId
+    }, ()=>console.log('clicked room id is',clickedRoomId))
+  }
+
+  //find room object with the id that matches the clickedRoomId
+  findCurrentRoom() {
+    return this.state.rooms.find(r =>{
+      return r.id === this.state.clickedRoomId
     })
   }
 
@@ -48,6 +56,13 @@ class RoomIndex extends Component {
     this.setState({ term: event.target.value })
   }
 
+  //find furniture by id
+  getFurnitureId = clickedFurnitureId => {
+    this.setState({
+      clickedFurnitureId: clickedFurnitureId
+    }, ()=>console.log('clicked furniture id is',clickedFurnitureId))
+  }
+
 render() {
   const filteredFurniture = this.state.furniture.filter(f => {
   return f.name.toLowerCase().includes(this.state.term.toLowerCase()) || f.color.toLowerCase().includes(this.state.term.toLowerCase())
@@ -58,14 +73,14 @@ render() {
       <h2>Your Rooms</h2>
       <div>
         {this.state.rooms.map(r => {
-          return <RoomCard key={r.id} room={r} />
+          return <RoomCard key={r.id} room={r} getRoomId={this.getRoomId}/>
         })}
       </div>
 
       <RoomForm addRoom={this.addRoom}/>
-      {/*<RoomContainer rooms={this.state.rooms} getRoomId={this.getRoomId} />*/}
+      <RoomContainer rooms={this.state.rooms} currentRoom={this.state.clickedRoomId} findCurrentRoom={this.findCurrentRoom()} />
       <Search onSearchChange={this.handleSearch} open={false} />
-      <AllFurnitureContainer allFurniture={filteredFurniture}/>
+      <AllFurnitureContainer getFurnitureId={this.getFurnitureId} allFurniture={filteredFurniture}/>
 
 
 
