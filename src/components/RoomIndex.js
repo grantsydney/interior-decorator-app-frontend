@@ -148,7 +148,12 @@ render() {
       <h2>Your Rooms</h2>
       <div>
         {this.state.rooms.map(r => {
-          return <RoomCard key={r.id} room={r} getRoomId={this.getRoomId} getUserRoomFurniture={this.getUserRoomFurniture}/>
+          return <RoomCard
+                    key={r.id}
+                    room={r}
+                    getRoomId={this.getRoomId}
+                    getUserRoomFurniture={this.getUserRoomFurniture}
+                  />
         })}
       </div>
 
@@ -165,8 +170,11 @@ render() {
         allFurniture={this.state.furniture}
       />
       <Search onSearchChange={this.handleSearch} open={false} />
-      <AllFurnitureContainer getFurnitureId={this.getFurnitureId} allFurniture={filteredFurniture}
-      clickedFurnitureId={this.state.clickedFurnitureId}/>
+      <AllFurnitureContainer
+        getFurnitureId={this.getFurnitureId}
+        allFurniture={filteredFurniture}
+        clickedFurnitureId={this.state.clickedFurnitureId}
+      />
 
 
 
