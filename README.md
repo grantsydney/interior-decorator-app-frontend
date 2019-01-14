@@ -14,6 +14,7 @@
 
               </Draggable> : null}
 
+              // <button onClick={()=>this.props.saveFurniturePiece(this.props.currentFurniture, this.props.currentRoom, 20, 30)}>Save</button>
 
 
 *************************************************************************************************************************

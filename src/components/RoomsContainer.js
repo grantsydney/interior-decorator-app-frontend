@@ -11,14 +11,15 @@ class RoomContainer extends Component {
   //   currentFurniture: []
   // }
 
-  state={
+  state = {
     furniture: [
-    {  name: "Chair",
+      {name: "Chair",
       deltaPosition: {
         x: 0, y: 0
-      }}
-    ],
-    realFurniture: []
+      }
+    }],
+    realFurniture: [],
+    updatedFurniture: {}
   }
 
   handleDrag = (e, ui) => {
@@ -53,22 +54,50 @@ class RoomContainer extends Component {
 
     // console.log("newFurDa is: ", newFurnitureData)
     // console.log("updatedFurniture is", updatedFurniture)
-    this.setState({ realFurniture: newFurnitureData }, ()=>console.log(this.state.realFurniture))
-
-    // fetch(`http://localhost:3001/api/v1/users/1/room_furniture/${updatedFurniture.id}`, {
-    //   method: 'PATCH',
-    //   headers: {'Content-Type': 'application/json'},
-    //   body: JSON.stringify({
-    //     furniture_id: updatedFurniture.furniture_id,
-    //     room_id: updatedFurniture.room_id,
-    //     x_coord: updatedFurniture.xCoord,
-    //     y_coord: updatedFurniture.yCoord
+    this.setState({
+      realFurniture: newFurnitureData,
+      updatedFurniture: updatedFurniture
+     }, ()=>console.log(this.state.realFurniture))
+    // if (updatedFurniture) {
+    //   fetch(`http://localhost:3000/api/v1/users/1/room_furniture/${updatedFurniture.id}`, {
+    //     method: 'PATCH',
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //       furniture_id: updatedFurniture.furniture_id,
+    //       room_id: updatedFurniture.room_id,
+    //       x_coord: updatedFurniture.x_coord,
+    //       y_coord: updatedFurniture.y_coord
+    //     })
     //   })
-    // })
     //   .then(res => res.json())
     //   .then(json => {
-    //     debugger
+    //     // debugger
     //   })
+    // }
+  }
+
+  updateFurniturePosition = () => {
+    fetch(`http://localhost:3000/api/v1/users/1/room_furniture/${this.state.updatedFurniture.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          room_furniture: {
+            furniture_id: this.state.updatedFurniture.furniture_id,
+            room_id: this.state.updatedFurniture.room_id,
+            x_coord: this.state.updatedFurniture.x_coord,
+            y_coord: this.state.updatedFurniture.y_coord
+          }
+        })
+      })
+      .then(res => res.json())
+      .then(json => {
+        // debugger
+        console.log("hi sydney, im sorry i yelled @ u", json)
+      })
   }
 
 
@@ -125,7 +154,7 @@ class RoomContainer extends Component {
         }) : null}
 
       </div>
-      <button onClick={()=>this.props.saveFurniturePiece(this.props.currentFurniture, this.props.currentRoom, 20, 30)}>Save</button>
+      <button onClick={this.updateFurniturePosition}>Save</button>
 
       </div>
 
