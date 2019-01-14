@@ -1,3 +1,49 @@
+//create draggable component for a piece of furniture that is selected from furniture form
+
+{this.props.findCurrentFurniture ? <Draggable
+                defaultClassName={`${this.props.findCurrentFurniture.name}`}
+                onDrag={this.handleDrag}
+                bounds="parent"
+                axis="both"
+                handle={`.${this.props.findCurrentFurniture.name}`}
+                defaultPosition={{x: 0, y: 0}}
+                scale={1}
+                >
+
+                  <img src={`./images/furniture_sketches/${this.props.findCurrentFurniture.img_sketch}`} alt={this.props.findCurrentFurniture.name}/>
+
+              </Draggable> : null}
+
+
+
+*************************************************************************************************************************
+handleDrag = (e, ui) => {
+  // debugger
+  // let foundFurniture = this.state.furniture.find(f => ui.node.classList[0])
+  let newFurnitureData = this.props.allFurniture.map(f => { if(ui.node.classList[0] === f.name){
+      //ui.node.parentElement.id DIDN'T WORK
+      return this.props.roomFurniture.map(rf=>{
+        if (e.target.dataset.id === rf.furniture_id){
+          debugger
+          return {...rf, deltaPosition: {
+            x: rf.x_coord + ui.deltaX,
+            y: rf.y_coord + ui.deltaY,
+            // f.deltaPosition.y
+          }
+        }
+      } return rf
+      })
+
+    }
+  })
+
+  // console.log("state is: ", this.state.furniture)
+  // debugger
+  this.setState({ realFurniture: newFurnitureData }, ()=>console.log(this.state.realFurniture))
+
+}
+
+
 findCurrentFurniture() {
   return this.state.furniture.find(f =>{
     return f.id === this.state.clickedFurnitureId
