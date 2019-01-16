@@ -109,7 +109,7 @@ console.log("mouse up")
                           defaultPosition={{x: rf.x_coord, y: rf.y_coord}}
                           scale={1}
                         >
-                          <img data-id={`${rf.id}`} src={`./images/furniture_sketches/${f.img_sketch}`} alt={f.name}/>
+                          <img data-id={`${rf.id}`} style={{position:'absolute'}} src={`./images/furniture_sketches/${f.img_sketch}`} alt={f.name}/>
                       </Draggable>
             }//end if statement
           })//end of allFurniture map
@@ -126,7 +126,7 @@ console.log("mouse up")
                         scale={1}
                         >
 
-                          <img src={`./images/furniture_sketches/${this.props.findCurrentFurniture.img_sketch}`} alt={this.props.findCurrentFurniture.name}/>
+                          <img style={{position:'absolute'}} src={`./images/furniture_sketches/${this.props.findCurrentFurniture.img_sketch}`} alt={this.props.findCurrentFurniture.name}/>
 
                       </Draggable> : null}
 

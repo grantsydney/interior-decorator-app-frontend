@@ -147,14 +147,14 @@ render() {
       <h1>RoomIndex</h1>
       <h2>Your Rooms</h2>
       <div>
-        {this.state.rooms.map(r => {
+        {this.state.rooms ? this.state.rooms.map(r => {
           return <RoomCard
                     key={r.id}
                     room={r}
                     getRoomId={this.getRoomId}
                     getUserRoomFurniture={this.getUserRoomFurniture}
                   />
-        })}
+              }) : null}
       </div>
 
       <RoomForm addRoom={this.addRoom}/>
