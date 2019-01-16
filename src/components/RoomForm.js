@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "semantic-ui-react";
 import { Form } from 'semantic-ui-react'
-
+import { connect } from 'react-redux'
 
 class RoomForm extends React.Component {
   constructor() {
@@ -23,7 +23,8 @@ class RoomForm extends React.Component {
   handleSubmit = (event) => {
   event.preventDefault()
 
-  fetch('http://localhost:3000/api/v1/users/1/rooms', {
+  fetch(`http://localhost:3000/api/v1/users/${this.props.user.id}/rooms`,
+     {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -64,4 +65,10 @@ class RoomForm extends React.Component {
   }
 }
 
-export default RoomForm;
+function mapStateToProps(reduxStore) {
+  console.log(reduxStore)
+  return {
+    userId: reduxStore.user.id
+  }
+}
+export default connect(mapStateToProps)(RoomForm);

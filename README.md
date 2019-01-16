@@ -1,3 +1,18 @@
+ReactDOM.render(
+  <Provider store={store}>
+    <Router>
+      <React.Fragment>
+
+         <Route exact path="/" component={Splash} />
+         <Route exact path="/RoomIndex" component={App} />
+
+       </React.Fragment>
+    </Router>
+  </Provider>,
+  document.getElementById('root')
+)
+registerServiceWorker()
+
 //create draggable component for a piece of furniture that is selected from furniture form
 
 {this.props.findCurrentFurniture ? <Draggable

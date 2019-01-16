@@ -4,6 +4,7 @@ import RoomForm from './RoomForm'
 import RoomContainer from './RoomsContainer'
 import { Search } from 'semantic-ui-react'
 import AllFurnitureContainer from './AllFurnitureContainer'
+import { connect } from 'react-redux'
 
 
 
@@ -26,7 +27,7 @@ class RoomIndex extends Component {
   //fetches
   componentDidMount() {
     //fetch all user's rooms data
-    fetch(`http://localhost:3000/api/v1/users/1/rooms`)
+    fetch(`http://localhost:3000/api/v1/users/${this.props.user.id}/rooms`)
       .then(r => r.json())
       .then(roomData => {
         this.setState({ rooms: roomData })
@@ -76,7 +77,7 @@ class RoomIndex extends Component {
   getUserRoomFurniture = clickedRoomId => {
     //fetch all user's room_furniture data
     // debugger
-    fetch(`http://localhost:3000/api/v1/users/1/room_furniture/${clickedRoomId}`)
+    fetch(`http://localhost:3000/api/v1/users/${this.props.user.id}/room_furniture/${clickedRoomId}`)
       .then(r => r.json())
       .then(roomFurnitureData => {
         // debugger
@@ -94,7 +95,7 @@ class RoomIndex extends Component {
     saveFurniturePiece = (clickedFurnitureId, clickedRoomId, xCoord, yCoord) => {
       //onClick of save button, creates POST request to roomFurniture table with all 4 parameters
       // debugger
-      fetch("http://localhost:3000/api/v1/users/1/room_furniture", {
+      fetch(`http://localhost:3000/api/v1/users/${this.props.user.id}/room_furniture`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -183,6 +184,14 @@ render() {
 }
 
 
+
+
 }
 
-export default RoomIndex;
+function mapStateToProps(reduxStore) {
+  return {
+    userId: reduxStore.user.id
+  }
+}
+
+export default connect(mapStateToProps)(RoomIndex);

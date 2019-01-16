@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-
 import Room from './Room';
 import Draggable from 'react-draggable';
+import { connect } from 'react-redux'
+
 
 
 class RoomContainer extends Component {
@@ -36,7 +37,7 @@ class RoomContainer extends Component {
   }
 
   updateFurniturePosition = () => {
-    fetch(`http://localhost:3000/api/v1/users/1/room_furniture/${this.state.updatedFurniture.id}`, {
+    fetch(`http://localhost:3000/api/v1/users/${this.props.user.id}/room_furniture/${this.state.updatedFurniture.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -130,12 +131,13 @@ class RoomContainer extends Component {
 
   }
 
-
-
-
-
-
-
 }
 
-export default RoomContainer
+function mapStateToProps(reduxStore) {
+  console.log(reduxStore)
+  return {
+    userId: reduxStore.user.id
+  }
+}
+
+export default connect(mapStateToProps)(RoomContainer);
