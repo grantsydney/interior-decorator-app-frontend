@@ -35,6 +35,16 @@ class RoomContainer extends Component {
      }, ()=>console.log(this.state.realFurniture))
   }
 
+  mouseDown = (e, ui) => {
+
+  console.log("mouse down")
+}
+
+mouseUp = (e, ui) => {
+debugger
+console.log("mouse up")
+}
+
   updateFurniturePosition = () => {
     fetch(`http://localhost:3000/api/v1/users/1/room_furniture/${this.state.updatedFurniture.id}`, {
         method: 'PATCH',
@@ -91,6 +101,8 @@ class RoomContainer extends Component {
                           key={rf.id}
                           defaultClassName={`${f.name}`}
                           onDrag={this.handleDrag}
+                          onMouseDown={this.mouseDown}
+                          onMouseUp={this.mouseUp}
                           bounds="parent"
                           axis="both"
                           handle={`.${f.name}`}
