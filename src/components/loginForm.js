@@ -50,6 +50,7 @@ class LoginForm extends React.Component {
           </Form.Group>
           <Button type="submit">Login</Button>
         </Form>
+        Create an account? <a href='/signup'>Signup</a>
       </Segment>
     )
   }

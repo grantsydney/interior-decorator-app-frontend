@@ -1,3 +1,5 @@
+// import LOGOUT_USER from
+
 export const /*FUNCTION*/ loginUser = (username, password) => {
   return /*FUNCTION*/ (dispatch) => { //thunk
     // console.log(process.env.REACT_APP_API_ENDPOINT)
@@ -74,3 +76,27 @@ export const authenticatingUser = () => ({ type: 'AUTHENTICATING_USER' })
 // export const authenticatingUser = () => {
 //   return { type: 'AUTHENTICATING_USER' }
 // }
+
+export const logOut = () => {
+  localStorage.removeItem('jwt')
+return {type: 'LOGOUT_USER'}
+}
+
+export const signupUser = (username, password) => {
+  return(dispatch) => {
+    const data = {user: {username, password} }
+    fetch(`http://localhost:3000/api/v1/users`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(r=>r.json())
+    .then(r=>{
+      localStorage.setItem('jwt', r.jwt)
+      dispatch({type: 'SET_CURRENT_USER', payload: r.user})
+    })
+  }
+}

@@ -5,9 +5,7 @@ import RoomContainer from './RoomsContainer'
 import { Search } from 'semantic-ui-react'
 import AllFurnitureContainer from './AllFurnitureContainer'
 import { connect } from 'react-redux'
-
-
-
+import withAuth from '../hocs/withAuth'
 
 class RoomIndex extends Component {
 
@@ -27,14 +25,24 @@ class RoomIndex extends Component {
   //fetches
   componentDidMount() {
     //fetch all user's rooms data
-    fetch(`http://localhost:3000/api/v1/users/${this.props.user.id}/rooms`)
+    fetch(`http://localhost:3000/api/v1/users/${this.props.userId}/rooms`,{
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+      }
+    })
       .then(r => r.json())
       .then(roomData => {
         this.setState({ rooms: roomData })
       })
 
     //fetch all furniture data
-    fetch(`http://localhost:3000/api/v1/furnitures`)
+    fetch(`http://localhost:3000/api/v1/furnitures`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+      }
+    })
       .then(r => r.json())
       .then(furnitureData => {
         this.setState({ furniture: furnitureData })
@@ -141,13 +149,14 @@ class RoomIndex extends Component {
 render() {
   // debugger
   const filteredFurniture = this.state.furniture.filter(f => {
-  return f.name.toLowerCase().includes(this.state.term.toLowerCase()) || f.color.toLowerCase().includes(this.state.term.toLowerCase())
-})
+    return f.name.toLowerCase().includes(this.state.term.toLowerCase()) || f.color.toLowerCase().includes(this.state.term.toLowerCase())
+  })
+  console.log(this.state)
   return(
     <div>
       <h1>RoomIndex</h1>
       <h2>Your Rooms</h2>
-      <div>
+      { /*   <div>
         {this.state.rooms.map(r => {
           return <RoomCard
                     key={r.id}
@@ -156,7 +165,7 @@ render() {
                     getUserRoomFurniture={this.getUserRoomFurniture}
                   />
         })}
-      </div>
+      </div>*/}
 
       <RoomForm addRoom={this.addRoom}/>
       <RoomContainer
@@ -176,9 +185,6 @@ render() {
         allFurniture={filteredFurniture}
         clickedFurnitureId={this.state.clickedFurnitureId}
       />
-
-
-
     </div>
   )
 }
@@ -189,9 +195,10 @@ render() {
 }
 
 function mapStateToProps(reduxStore) {
+  console.log(reduxStore);
   return {
-    userId: reduxStore.user.id
+    userId: reduxStore.usersReducer.user.id
   }
 }
 
-export default connect(mapStateToProps)(RoomIndex);
+export default withAuth(connect(mapStateToProps)(RoomIndex));

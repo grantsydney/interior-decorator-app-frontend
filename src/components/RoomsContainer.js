@@ -136,7 +136,7 @@ class RoomContainer extends Component {
 function mapStateToProps(reduxStore) {
   console.log(reduxStore)
   return {
-    userId: reduxStore.user.id
+    userId: reduxStore.usersReducer.user.id
   }
 }
 

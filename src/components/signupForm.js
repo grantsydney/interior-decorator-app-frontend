@@ -1,30 +1,31 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router'
-import { loginUser } from '../actions/user'
+import { signupUser } from '../actions/user'
 import { Button, Form, Segment, Message } from 'semantic-ui-react'
 
 class SignupForm extends React.Component {
 
-  state = { username: '', password: '' }
+  state = { username: '', password: '', isSignedUp: false }
 
   handleChange = (e, semanticInputData) => {
     this.setState({ [e.target.name]: e.target.value })
+
   }
 
-  handleLoginSubmit = (e) => {
-    this.props.loginUser(this.state.username, this.state.password) //comes from mapDispatchToProps
-    this.setState({ username: '', password: '' }) //reset form to initial state
+  handleSignupSubmit = (e) => {
+    this.props.signupUser(this.state.username, this.state.password) //comes from mapDispatchToProps
+    this.setState({ isSignedUp: true }) //reset form to initial state
   }
 
   render() {
-    console.log('%c LOGIN FORM PROPS: ', 'color: red', this.props)
     return this.props.loggedIn ? (
       <Redirect to="/profile" />
     ) : (
       <Segment>
+        <h1>Signup</h1>
         <Form
-          onSubmit={this.handleLoginSubmit}
+          onSubmit={this.handleSignupSubmit}
           size="mini"
           key="mini"
           loading={this.props.authenticatingUser}
@@ -48,8 +49,9 @@ class SignupForm extends React.Component {
               value={this.state.password}
             />
           </Form.Group>
-          <Button type="submit">Login</Button>
+          <Button type="submit">Signup</Button>
         </Form>
+        login? <a href='/login'>Login</a>
       </Segment>
     )
   }
@@ -62,4 +64,4 @@ const mapStateToProps = ({ usersReducer: { authenticatingUser, failedLogin, erro
   loggedIn
 })
 
-export default withRouter(connect(mapStateToProps, { loginUser })(SignupForm))
+export default withRouter(connect(mapStateToProps, { signupUser })(SignupForm))

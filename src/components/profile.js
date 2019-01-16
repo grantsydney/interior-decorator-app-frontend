@@ -11,6 +11,7 @@ const Profile = ({ username}) => (
 
     </Card.Content>
   </Card>
+  
 )
 
 const mapStateToProps = ({ usersReducer: { user: { username } } }) => ({
