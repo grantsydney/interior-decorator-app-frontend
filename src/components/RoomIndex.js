@@ -19,7 +19,7 @@ class RoomIndex extends Component {
     chosenFurniture: [{id: 2, name: "Chair", category: "seating", description: "glossy red finish", color: "red", img: "molded-plastic-wire-base-side-chair.png",
     img_sketch: "molded-plastic-wire-base-side-chair-sketch.png", dimension1: 18,
     dimension2: 22}],
-    roomFurniture: []
+
 
   }
 
@@ -84,16 +84,19 @@ class RoomIndex extends Component {
       }, ()=>console.log(this.state.roomFurniture))
 
   }
-
+// chosenFurniture: [item, ...this.state.roomFurniture],
     addPiece = (item) => {
+      console.log(item, "added to chosen furniture with room id of", item.room_id);
       this.setState({
         chosenFurniture: [item, ...this.state.roomFurniture]
+        // roomFurniture: [item, ...this.state.roomFurniture]
       })
     }
 
     saveFurniturePiece = (clickedFurnitureId, clickedRoomId, xCoord, yCoord) => {
       //onClick of save button, creates POST request to roomFurniture table with all 4 parameters
       // debugger
+
       fetch("http://localhost:3000/api/v1/users/1/room_furniture", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -154,7 +157,7 @@ render() {
                     getRoomId={this.getRoomId}
                     getUserRoomFurniture={this.getUserRoomFurniture}
                   />
-              }) : null}
+              }) : <p>No Rooms!</p>}
       </div>
 
       <RoomForm addRoom={this.addRoom}/>

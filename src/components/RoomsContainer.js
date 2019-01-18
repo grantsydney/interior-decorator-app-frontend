@@ -7,11 +7,13 @@ import Draggable from 'react-draggable';
 class RoomContainer extends Component {
 
   state = {
-    realFurniture: [],
-    updatedFurniture: {}
+    currentRoomFurniture: [],
+    updatedFurniture: {},
+    newRoomFurniture: []
   }
 
   handleDrag = (e, ui) => {
+    // debugger
     let newFurnitureData;
     let updatedFurniture;
     // let foundFurniture = this.state.furniture.find(f => ui.node.classList[0])
@@ -19,8 +21,10 @@ class RoomContainer extends Component {
        if(ui.node.classList[0] === f.name) {
         //ui.node.parentElement.id DIDN'T WORK
         newFurnitureData = this.props.roomFurniture.map(rf=>{
+          // console.log(rf)
           if (e.target.dataset.id == rf.id){
             let newRoomFurnitureObject = {...rf, x_coord: ui.x, y_coord: ui.y,}
+            // debugger
             updatedFurniture = newRoomFurnitureObject
             return newRoomFurnitureObject
           } else {
@@ -30,10 +34,42 @@ class RoomContainer extends Component {
       } // end of checking if furniture name matches node classList
     }) // end of iterating over this.props.allFurniture
     this.setState({
-      realFurniture: newFurnitureData,
+      currentRoomFurniture: newFurnitureData,
       updatedFurniture: updatedFurniture
-     }, ()=>console.log(this.state.realFurniture))
+    }, ()=>console.log(this.state.currentRoomFurniture))
   }
+
+
+  handleDragForNewFurniture = (e, ui) => {
+    // debugger
+    let newFurnitureData;
+    let updatedFurniture;
+    // let foundFurniture = this.state.furniture.find(f => ui.node.classList[0])
+     this.props.allFurniture.map(f => {
+       if(ui.node.classList[0] === f.name) {
+        //ui.node.parentElement.id DIDN'T WORK
+        newFurnitureData = this.props.chosenFurniture.map(rf=>{
+          console.log(rf)
+          // debugger
+          if (e.target.dataset.id == rf.id){
+            let newRoomFurnitureObject = {...rf, x_coord: ui.x, y_coord: ui.y,}
+            updatedFurniture = newRoomFurnitureObject
+            // debugger
+            return newRoomFurnitureObject
+          } else {
+            return rf
+          }
+        }) // end of interating over this.props.chosenFurniture
+      } // end of checking if furniture name matches node classList
+    }) // end of iterating over this.props.allFurniture
+    this.setState({
+      currentRoomFurniture: newFurnitureData,
+      updatedFurniture: updatedFurniture
+    }, ()=>console.log(this.state.currentRoomFurniture))
+  }
+
+
+
 
   mouseDown = (e, ui) => {
 
@@ -132,19 +168,20 @@ console.log("mouse up")
         }) : null }
 
         {this.props.findCurrentFurniture ? <Draggable
-                        defaultClassName={`${this.props.findCurrentFurniture.name}`}
-                        onDrag={this.handleDrag}
-                        bounds="parent"
-                        axis="both"
-                        handle={`.${this.props.findCurrentFurniture.name}`}
-                        defaultPosition={{x: 0, y: 0}}
-                        scale={1}
-                        >
+                          defaultClassName={`${this.props.findCurrentFurniture.name}`}
+                          onDrag={this.handleDragForNewFurniture}
+                          bounds="parent"
+                          axis="both"
+                          handle={`.${this.props.findCurrentFurniture.name}`}
+                          defaultPosition={{x: 0, y: 0}}
+                          scale={1}
+                          >
 
-                        <img style={{position:'absolute'}}src={`./images/furniture_sketches/${this.props.findCurrentFurniture.img_sketch}`} alt={this.props.findCurrentFurniture.name}/>
+                          <img data-id={this.props.chosenFurniture[0].id} style={{position:'absolute'}}src={`./images/furniture_sketches/${this.props.findCurrentFurniture.img_sketch}`} alt={this.props.findCurrentFurniture.name}/>
 
 
-                      </Draggable> : null}
+                        </Draggable> : null}
+
 
 
 
