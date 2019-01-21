@@ -82,9 +82,9 @@ export const logOut = () => {
 return {type: 'LOGOUT_USER'}
 }
 
-export const signupUser = (username, password) => {
+export const signupUser = (name, username, password) => {
   return(dispatch) => {
-    const data = {user: {username, password} }
+    const data = {user: {name, username, password} }
     fetch(`http://localhost:3000/api/v1/users`,{
       method: 'POST',
       headers: {

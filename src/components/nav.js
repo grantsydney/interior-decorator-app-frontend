@@ -54,8 +54,9 @@ const Nav = (props) => {
     {props.loggedIn ? (
       <Fragment>
         <Menu.Item as={NavLink} to="/profile" name="Profile" />
-        <Menu.Menu position="right"><button onClick={()=>handleClick()}>logout</button>
-          {/* TODO: logout */}
+        <Menu.Item as={NavLink} to="/RoomIndex" name="Your Rooms" />
+        <Menu.Menu position="right">
+            <Menu.Item name="Logout" onClick={()=>handleClick()}/>
           {/* <Menu.Item to="/logout" name="Logout" onClick={logout} /> */}
         </Menu.Menu>
       </Fragment>

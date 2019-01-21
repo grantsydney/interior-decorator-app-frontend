@@ -4,18 +4,14 @@ import { Card} from 'semantic-ui-react'
 import withAuth from '../hocs/withAuth'
 
 // props: { user: { avatar: 'url', username: 'Chandler Bing', bio: 'bio' } }
-const Profile = ({ username}) => (
-  <Card>
-    <Card.Content>
-      <Card.Header>Username: {username}</Card.Header>
+const Profile = ({ name}) => (
+  <h1>Welcome, {name}</h1>
 
-    </Card.Content>
-  </Card>
-  
+
 )
 
-const mapStateToProps = ({ usersReducer: { user: { username } } }) => ({
-  username
+const mapStateToProps = ({ usersReducer: { user: { name } } }) => ({
+  name
 })
 
 
