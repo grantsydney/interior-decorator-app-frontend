@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 
-// import Room from './Room';
+import Room from './Room';
 import Draggable from 'react-draggable';
-import { Button } from 'semantic-ui-react'
-import {Toast} from 'react-materialize'
 
 
 class RoomContainer extends Component {
@@ -84,61 +82,30 @@ console.log("mouse up")
 }
 
   updateFurniturePosition = () => {
-
-      fetch(`http://localhost:3000/api/v1/users/1/room_furniture/${this.state.updatedFurniture.id}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            room_furniture: {
-              furniture_id: this.state.updatedFurniture.furniture_id,
-              room_id: this.state.updatedFurniture.room_id,
-              x_coord: this.state.updatedFurniture.x_coord,
-              y_coord: this.state.updatedFurniture.y_coord
-            }
-          })
+    fetch(`http://localhost:3000/api/v1/users/1/room_furniture/${this.state.updatedFurniture.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          room_furniture: {
+            furniture_id: this.state.updatedFurniture.furniture_id,
+            room_id: this.state.updatedFurniture.room_id,
+            x_coord: this.state.updatedFurniture.x_coord,
+            y_coord: this.state.updatedFurniture.y_coord
+          }
         })
-        .then(res => res.json())
-        .then(json => {
+      })
+      .then(res => res.json())
+      .then(json => {        console.log("hi sydney, im sorry i yelled @ u", json)
 
-        })
-
-        this.setState({
-          updatedFurniture: {}
-        })
-    }
-
-  handleDoubleClick = (event) => {
-    event.target.remove()
-    let roomFurnitureId = parseInt(event.target.dataset.id)
-    fetch(`http://localhost:3000/api/v1/users/1/room_furniture/${roomFurnitureId}`, { method: 'DELETE' })
-    // debugger
+      })
   }
 
-
-saveMoved = (event) => {
-  if(this.state.updatedFurniture.id !== undefined){
-    window.Materialize.toast('Furniture Position Saved', 1000, 'orange rounded');
-    this.updateFurniturePosition(event);
-  } else{
-    alert('No Furniture Selected.')
+  handleDoubleClick = () => {
+    debugger
   }
 
-}
-
-// this.props.saveFurniturePiece(this.props.currentFurniture, this.props.currentRoom, 20, 30)}
-
-saveNew = (event) => {
-
-  if(this.props.currentFurniture !== ''){
-    window.Materialize.toast('New Furniture Saved', 1000, 'orange rounded');
-    this.props.saveFurniturePiece(this.props.currentFurniture, this.props.currentRoom, 20, 30);
-  } else{
-    alert('No Furniture Selected.')
-  }
-
-}
 
 
 
@@ -165,8 +132,9 @@ saveNew = (event) => {
     // console.log(this.state.currentFurniture);
     return(
       <div>
-      {this.props.findCurrentRoom ? <h3 className="room-container-name">{this.props.findCurrentRoom.name}</h3> :null}
-      <div className="mock-room parent" style={{border:this.props.findCurrentRoom ? "1px solid black":null,width:this.props.findCurrentRoom?`${this.props.findCurrentRoom.dimension1}px`:null,height:this.props.findCurrentRoom?`${this.props.findCurrentRoom.dimension2}px`:null,margin:'auto',position:"relative"}}>
+      {/*<h1>RoomContainer</h1>*/}
+      <h3>{this.props.findCurrentRoom? this.props.findCurrentRoom.name : null}</h3>
+      <div className="mock-room parent" style={{border:this.props.findCurrentRoom?"1px solid black":null,width:this.props.findCurrentRoom?`${this.props.findCurrentRoom.dimension1}px`:null,height:this.props.findCurrentRoom?`${this.props.findCurrentRoom.dimension2}px`:null,margin:'auto',position:"relative"}}>
         {this.props.roomFurniture ?
           this.props.roomFurniture.map(rf=> { return this.props.allFurniture.map(f => {
             if (f.id === rf.furniture_id){
@@ -200,7 +168,7 @@ saveNew = (event) => {
 
         }) : null }
 
-        {this.props.findCurrentFurniture ? <Draggable
+      {this.props.findCurrentFurniture ? <Draggable
                           defaultClassName={`${this.props.findCurrentFurniture.name}`}
                           onDrag={this.handleDragForNewFurniture}
                           bounds="parent"
@@ -210,7 +178,7 @@ saveNew = (event) => {
                           scale={1}
                           >
 
-                          <img data-id={this.props.chosenFurniture[0].id} style={{position:'absolute'}}src={`./images/furniture_sketches/${this.props.findCurrentFurniture.img_sketch}`} alt={this.props.findCurrentFurniture.name} onDoubleClick={this.handleDoubleClick}/>
+                          <img data-id={this.props.chosenFurniture[0].id} style={{position:'absolute'}}src={`./images/furniture_sketches/${this.props.findCurrentFurniture.img_sketch}`} alt={this.props.findCurrentFurniture.name}/>
 
 
                         </Draggable> : null}
@@ -219,13 +187,8 @@ saveNew = (event) => {
 
 
       </div>
-
-      {this.props.findCurrentRoom?<Button basic color='violet' content='Save Moved Furniture Piece' onClick={this.saveMoved} />:null}
-
-    { /* {this.props.findCurrentRoom && this.state.updatedFurniture ? <Button basic color='violet' content='Save Moved Furniture Piece' onClick={this.updateFurniturePosition} />:null}*/}
-      {this.props.findCurrentRoom ? <Button basic color='violet' content='Save New Furniture Piece' onClick={this.saveNew} /> :null}
-
-
+      <button onClick={this.updateFurniturePosition}>Save Moved Furniture Piece</button>
+       <button onClick={()=>this.props.saveFurniturePiece(this.props.currentFurniture, this.props.currentRoom, 20, 30)}>Save New Furniture Piece</button>
 
       </div>
 

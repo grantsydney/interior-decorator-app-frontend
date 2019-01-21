@@ -46,7 +46,7 @@
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 120px;
+  width: 500px;
   background-color: black;
   color: #fff;
   text-align: center;
@@ -60,4 +60,24 @@
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+
+.room-card{
+  font-size: 3em;
+  color: black;
+  margin: auto;
+  padding: 10%;
+}
+
+.furniture-card{
+margin: 10%;
+}
+
+.room-form{
+  width: 50%;
+  margin: auto;
+}
+
+.room-container-name{
+  font-size: 4em;
 }

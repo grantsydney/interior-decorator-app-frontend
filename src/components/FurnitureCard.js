@@ -8,15 +8,12 @@ const FurnitureCard = props => {
   // console.log(props);
   return (
     <Card>
-      <div onClick={()=>props.getFurnitureId(props.furniture.id)}>
+      <div className="furniture-card" onClick={()=>props.getFurnitureId(props.furniture.id)}>
       <span className="tooltip">
-        <h3>FurnitureCard</h3>
-          <p>{props.furniture.name}</p>
           <span className="tooltiptext">
             <div>
             <p>{props.furniture.name}</p>
             <p>Description: {props.furniture.description}</p>
-            <p>Dimensions: {props.furniture.dimension1}, {props.furniture.dimension2}</p>
             <img src={`./images/furniture/${props.furniture.img}`} alt={props.furniture.name}/>
             </div>
           </span>

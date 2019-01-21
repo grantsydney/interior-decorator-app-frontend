@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import RoomForm from './RoomForm'
 import RoomContainer from './RoomsContainer'
-import { Search, Button, Divider } from 'semantic-ui-react'
+import { Search } from 'semantic-ui-react'
 import AllFurnitureContainer from './AllFurnitureContainer'
 import AllRooms from './AllRooms'
-
-
-
+import { Toast, Button } from 'react-materialize';
 
 
 
@@ -21,10 +19,9 @@ class RoomIndex extends Component {
     chosenFurniture: [{id: 2, name: "Chair", category: "seating", description: "glossy red finish", color: "red", img: "molded-plastic-wire-base-side-chair.png",
     img_sketch: "molded-plastic-wire-base-side-chair-sketch.png", dimension1: 18,
     dimension2: 22}],
-    showFurniture: false,
+    roomFurniture:[],
+    viewRooms: false,
     createRoom: false
-
-
   }
 
   //fetches
@@ -49,7 +46,7 @@ class RoomIndex extends Component {
   getRoomId = clickedRoomId => {
     this.setState({
       clickedRoomId: clickedRoomId
-    })
+    }, ()=>console.log('clicked room id is',clickedRoomId))
   }
 
   //find room object with the id that matches the clickedRoomId
@@ -99,7 +96,6 @@ class RoomIndex extends Component {
 
     saveFurniturePiece = (clickedFurnitureId, clickedRoomId, xCoord, yCoord) => {
       //onClick of save button, creates POST request to roomFurniture table with all 4 parameters
-      // debugger
 
       fetch("http://localhost:3000/api/v1/users/1/room_furniture", {
         method: 'POST',
@@ -124,61 +120,49 @@ class RoomIndex extends Component {
         return f.id === this.state.clickedFurnitureId
       })
     }
-      // let clickedFurniture = this.state.furniture.find(f =>{
-      //    return f.id === this.state.clickedFurnitureId
-      // })
-      // this.setState({
-      //   chosenFurniture: [...this.state.chosenFurniture, clickedFurniture]
-      // })
-      // if (this.state.clickedFurnitureId){
-      //   let clickedFurniture = this.state.furniture.map(f =>{
-      //     // debugger
-      //      return f.id === clickedFurnitureId
-      //   })
-      // }
-
-      // this.setState({
-      //   chosenFurniture: [...this.state.chosenFurniture, clickedFurniture]
-      // },()=>console.log(this.state.chosenFurniture))
 
 
-      furnitureToggle = () => {
-        this.setState({
-          showFurniture: !this.state.showFurniture
-        })
-        if(this.state.showFurniture === true){
-          document.querySelector('.show-furniture').innerText = 'Show Furniture'
-        } else {
-          document.querySelector('.show-furniture').innerText = 'Hide Furniture'
-        }
-      }
+  // viewRooms = () => {
+  //   this.setState({
+  //     viewRooms: !this.state.viewRooms
+  //   })
+  //   if (this.state.viewRooms == false){
+  //     document.querySelector('button').innerText = "Hide Rooms"
+  //   } else {
+  //     document.querySelector('button').innerText = "View Rooms?"
+  //   }
+  //
+  // }
+  //
+  //   <button id= onClick={()=>this.viewRooms()}>View Rooms?</button>
+  //   {this.state.viewRooms == true ?   <AllRooms rooms={this.state.rooms} getRoomId={this.getRoomId} getUserRoomFurniture={this.getUserRoomFurniture}/> : null}
 
-      roomFormToggle = () => {
-        this.setState({
-          createRoom: !this.state.createRoom
-        })
-        if(this.state.createRoom === true){
-          document.querySelector('.create-room').innerText = 'Create a Room?'
-        } else {
-          document.querySelector('.create-room').innerText = "Don't create Room"
-        }
-      }
+  createRoom = () => {
+    this.setState({
+      createRoom: !this.state.createRoom
+    })
+  }
 
 
 
 
 render() {
-
+  // debugger
   const filteredFurniture = this.state.furniture.filter(f => {
-  return f.name.toLowerCase().includes(this.state.term.toLowerCase()) || f.color.toLowerCase().includes(this.state.term.toLowerCase()) || f.category.toLowerCase().includes(this.state.term.toLowerCase())
+  return f.name.toLowerCase().includes(this.state.term.toLowerCase()) || f.color.toLowerCase().includes(this.state.term.toLowerCase())
 })
   return(
     <div>
+      <h1>RoomIndex</h1>
 
-      <br/><br/><br/>
+
+
+
+
       <AllRooms rooms={this.state.rooms} getRoomId={this.getRoomId} getUserRoomFurniture={this.getUserRoomFurniture}/>
-      <Button className="create-room" basic color='violet' content='Create a Room?' onClick={()=>this.roomFormToggle()}/>
-      {this.state.createRoom ? <RoomForm addRoom={this.addRoom}/>: null}
+
+      <button onClick={()=>this.createRoom()}>Create A Room!</button>
+      {this.state.createRoom ? <RoomForm addRoom={this.addRoom}/> : null}
       <RoomContainer
         rooms={this.state.rooms}
         currentRoom={this.state.clickedRoomId}
@@ -190,14 +174,12 @@ render() {
         roomFurniture={this.state.roomFurniture}
         allFurniture={this.state.furniture}
       />
-    <Divider />
       <Search onSearchChange={this.handleSearch} open={false} />
-      <Button className="show-furniture" basic color='violet' content='Show Furniture' onClick={()=>this.furnitureToggle()}/>
-      {this.state.showFurniture ? <AllFurnitureContainer
+      <AllFurnitureContainer
         getFurnitureId={this.getFurnitureId}
         allFurniture={filteredFurniture}
         clickedFurnitureId={this.state.clickedFurnitureId}
-      /> : null}
+      />
 
 
 

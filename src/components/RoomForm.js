@@ -1,6 +1,7 @@
 import React from "react";
-import { Card } from "semantic-ui-react";
+// import { Card } from "semantic-ui-react";
 import { Form } from 'semantic-ui-react'
+
 
 
 class RoomForm extends React.Component {
@@ -23,7 +24,11 @@ class RoomForm extends React.Component {
   handleSubmit = (event) => {
   event.preventDefault()
 
-  fetch('http://localhost:3000/api/v1/users/1/rooms', {
+  if(this.state.name == ''){
+    alert('Please Fill Out Form.')
+  } else{
+
+    fetch('http://localhost:3000/api/v1/users/1/rooms', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -33,10 +38,11 @@ class RoomForm extends React.Component {
 
       })
     })
-      .then(r=>r.json())
-      .then(r => this.props.addRoom(r))
+    .then(r=>r.json())
+    .then(r => this.props.addRoom(r))
 
-      //get form to go back to blank input fields
+    //get form to go back to blank input fields
+
     this.setState({
       name: '',
       dimension1: '',
@@ -44,17 +50,22 @@ class RoomForm extends React.Component {
     })
   }
 
+
+  }
+
   // console.log(props);
   render(){
     return (
-      <div>
-      <h1>RoomForm</h1>
-      <h2>Create a New Room!</h2>
-      <Form onSubmit={this.handleSubmit} onChange={this.handleChange}>
+      <div className="room-form">
+
+
+<br/>
+
+     <Form widths='equal' onSubmit={this.handleSubmit} onChange={this.handleChange}>
       <Form.Group widths="equal">
-      <Form.Input fluid label="Name" placeholder="Name" name="name" />
-      <Form.Input fluid label="dimension1" placeholder="dimension1" name="dimension1" />
-      <Form.Input fluid label="dimension2" placeholder="dimension2" name="dimension2" />
+      <Form.Input fluid placeholder="Room Name" name="name" value={this.state.name} />
+      <Form.Input fluid placeholder="Width (ft)" name="dimension1" value={this.state.dimension1} />
+      <Form.Input fluid placeholder="Length (ft)" name="dimension2" value={this.state.dimension2} />
       </Form.Group>
       <Form.Button>Submit</Form.Button>
       </Form>
