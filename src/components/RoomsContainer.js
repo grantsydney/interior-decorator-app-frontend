@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 // import Room from './Room';
 import Draggable from 'react-draggable';
-import { Button } from 'semantic-ui-react'
+import { Button, Confirm } from 'semantic-ui-react'
 import {Toast} from 'react-materialize'
 
 
@@ -11,7 +11,9 @@ class RoomContainer extends Component {
   state = {
     currentRoomFurniture: [],
     updatedFurniture: {},
-    newRoomFurniture: []
+    newRoomFurniture: [],
+    open: false,
+    confirm: false
   }
 
   handleDrag = (e, ui) => {
@@ -73,15 +75,15 @@ class RoomContainer extends Component {
 
 
 
-  mouseDown = (e, ui) => {
+//   mouseDown = (e, ui) => {
+//
+//   console.log("mouse down")
+// }
 
-  console.log("mouse down")
-}
-
-mouseUp = (e, ui) => {
-debugger
-console.log("mouse up")
-}
+// mouseUp = (e, ui) => {
+// debugger
+// console.log("mouse up")
+// }
 
   updateFurniturePosition = () => {
 
@@ -110,11 +112,36 @@ console.log("mouse up")
     }
 
   handleDoubleClick = (event) => {
-    event.target.remove()
-    let roomFurnitureId = parseInt(event.target.dataset.id)
-    fetch(`http://localhost:3000/api/v1/users/1/room_furniture/${roomFurnitureId}`, { method: 'DELETE' })
+    // this.show()
+
+    // if (this.state.confirm === true){
+      // debugger
+      event.target.remove()
+      let roomFurnitureId = parseInt(event.target.dataset.id)
+      fetch(`http://localhost:3000/api/v1/users/1/room_furniture/${roomFurnitureId}`, { method: 'DELETE' })
+      this.setState({
+        confirm: false
+      })
+    // }
+
     // debugger
   }
+
+  show = () => {
+    this.setState({ open: true })
+
+
+
+  }
+
+  handleConfirm = () => {
+    this.setState({ open: false, confirm: true })
+
+  }
+  handleCancel = () => this.setState({ open: false })
+
+
+
 
 
 saveMoved = (event) => {
@@ -164,9 +191,10 @@ saveNew = (event) => {
     // console.log(this.props);
     // console.log(this.state.currentFurniture);
     return(
-      <div>
+      <div id="mock-room">
+
       {this.props.findCurrentRoom ? <h3 className="room-container-name">{this.props.findCurrentRoom.name}</h3> :null}
-      <div className="mock-room parent" style={{border:this.props.findCurrentRoom ? "1px solid black":null,width:this.props.findCurrentRoom?`${this.props.findCurrentRoom.dimension1}px`:null,height:this.props.findCurrentRoom?`${this.props.findCurrentRoom.dimension2}px`:null,margin:'auto',position:"relative"}}>
+      <div className="mock-room parent" style={{border:this.props.findCurrentRoom ? "1px solid black":null,width:this.props.findCurrentRoom?`${(this.props.findCurrentRoom.dimension1)*40}px`:null,height:this.props.findCurrentRoom?`${(this.props.findCurrentRoom.dimension2)*40}px`:null,margin:'auto',position:"relative"}}>
         {this.props.roomFurniture ?
           this.props.roomFurniture.map(rf=> { return this.props.allFurniture.map(f => {
             if (f.id === rf.furniture_id){
@@ -199,6 +227,14 @@ saveNew = (event) => {
           })//end of allFurniture map
 
         }) : null }
+
+        <Confirm
+          open={this.state.open}
+          cancelButton='Never mind'
+          confirmButton="Let's do it"
+          onCancel={this.handleCancel}
+          onConfirm={this.handleConfirm}
+        />
 
         {this.props.findCurrentFurniture ? <Draggable
                           defaultClassName={`${this.props.findCurrentFurniture.name}`}

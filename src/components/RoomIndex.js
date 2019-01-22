@@ -21,7 +21,7 @@ class RoomIndex extends Component {
     chosenFurniture: [{id: 2, name: "Chair", category: "seating", description: "glossy red finish", color: "red", img: "molded-plastic-wire-base-side-chair.png",
     img_sketch: "molded-plastic-wire-base-side-chair-sketch.png", dimension1: 18,
     dimension2: 22}],
-    showFurniture: false,
+    showFurniture: true,
     createRoom: false
 
 
@@ -149,7 +149,7 @@ class RoomIndex extends Component {
         if(this.state.showFurniture === true){
           document.querySelector('.show-furniture').innerText = 'Show Furniture'
         } else {
-          document.querySelector('.show-furniture').innerText = 'Hide Furniture'
+          document.querySelector('.show-furniture').innerText = 'X'
         }
       }
 
@@ -158,11 +158,13 @@ class RoomIndex extends Component {
           createRoom: !this.state.createRoom
         })
         if(this.state.createRoom === true){
-          document.querySelector('.create-room').innerText = 'Create a Room?'
+          document.querySelector('.create-room').innerText = 'Design A Room?'
         } else {
-          document.querySelector('.create-room').innerText = "Don't create Room"
+          document.querySelector('.create-room').innerText = "Don't Design A Room"
         }
       }
+
+
 
 
 
@@ -177,7 +179,8 @@ render() {
 
       <br/><br/><br/>
       <AllRooms rooms={this.state.rooms} getRoomId={this.getRoomId} getUserRoomFurniture={this.getUserRoomFurniture}/>
-      <Button className="create-room" basic color='violet' content='Create a Room?' onClick={()=>this.roomFormToggle()}/>
+      <Divider />
+      <Button className="create-room" basic color='violet' content='Design A Room?' onClick={()=>this.roomFormToggle()}/>
       {this.state.createRoom ? <RoomForm addRoom={this.addRoom}/>: null}
       <RoomContainer
         rooms={this.state.rooms}
@@ -191,13 +194,18 @@ render() {
         allFurniture={this.state.furniture}
       />
     <Divider />
-      <Search onSearchChange={this.handleSearch} open={false} />
-      <Button className="show-furniture" basic color='violet' content='Show Furniture' onClick={()=>this.furnitureToggle()}/>
-      {this.state.showFurniture ? <AllFurnitureContainer
-        getFurnitureId={this.getFurnitureId}
-        allFurniture={filteredFurniture}
-        clickedFurnitureId={this.state.clickedFurnitureId}
-      /> : null}
+
+      <Button className="show-furniture" basic color='violet' content='X' onClick={()=>this.furnitureToggle()}/>
+      {this.state.showFurniture ?
+        <div>
+          <Search onSearchChange={this.handleSearch} open={false} />
+          <AllFurnitureContainer
+          getFurnitureId={this.getFurnitureId}
+          allFurniture={filteredFurniture}
+          clickedFurnitureId={this.state.clickedFurnitureId}
+        />
+        </div>
+       : null}
 
 
 

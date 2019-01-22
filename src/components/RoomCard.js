@@ -33,12 +33,10 @@ render() {
           <strong>Height:</strong>{this.props.room.dimension2}
         </Card.Description>
         <Button data-id={this.props.room.id} onClick={this.deleteRoom} basic color='violet'>
-            Delete
+            X
           </Button>
       </Card.Content>
-        {/*  <div>
-          <h1 className="room-card">{this.props.room.name}</h1>
-          </div>*/}
+
       </Card>
 
 

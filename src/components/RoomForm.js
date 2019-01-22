@@ -1,6 +1,6 @@
 import React from "react";
 // import { Card } from "semantic-ui-react";
-import { Form } from 'semantic-ui-react'
+import { Form, Button } from 'semantic-ui-react'
 
 
 
@@ -67,7 +67,7 @@ class RoomForm extends React.Component {
       <Form.Input fluid placeholder="Width (ft)" name="dimension1" value={this.state.dimension1} />
       <Form.Input fluid placeholder="Length (ft)" name="dimension2" value={this.state.dimension2} />
       </Form.Group>
-      <Form.Button>Submit</Form.Button>
+      <Form.Button basic color='violet'>Submit</Form.Button>
       </Form>
       </div>
     )
