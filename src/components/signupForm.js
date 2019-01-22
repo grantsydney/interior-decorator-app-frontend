@@ -98,39 +98,4 @@ const mapStateToProps = ({ usersReducer: { authenticatingUser, failedLogin, erro
   loggedIn
 })
 
-{/*
-  <Segment>
-    <h1>Signup</h1>
-    <Form
-      onSubmit={this.handleSignupSubmit}
-      size="mini"
-      key="mini"
-      loading={this.props.authenticatingUser}
-      error={this.props.failedLogin}
-    >
-      <Message error header={this.props.failedLogin ? this.props.error : null} />
-      <Form.Group widths="equal">
-        <Form.Input
-          label="username"
-          placeholder="username"
-          name="username"
-          onChange={this.handleChange}
-          value={this.state.username}
-        />
-        <Form.Input
-          type="password"
-          label="password"
-          placeholder="password"
-          name="password"
-          onChange={this.handleChange}
-          value={this.state.password}
-        />
-      </Form.Group>
-      <Button type="submit">Signup</Button>
-    </Form>
-    login? <a href='/login'>Login</a>
-  </Segment>
-  */}
-
-
 export default withRouter(connect(mapStateToProps, { signupUser })(SignupForm))

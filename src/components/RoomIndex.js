@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import RoomCard from './RoomCard'
 import RoomForm from './RoomForm'
 import RoomContainer from './RoomsContainer'
-import { Search } from 'semantic-ui-react'
+import { Search, Button, Divider } from 'semantic-ui-react'
 import AllFurnitureContainer from './AllFurnitureContainer'
 import { connect } from 'react-redux'
 import withAuth from '../hocs/withAuth'
+import AllRooms from './AllRooms'
 
 class RoomIndex extends Component {
 
@@ -18,7 +18,9 @@ class RoomIndex extends Component {
     chosenFurniture: [{id: 2, name: "Chair", category: "seating", description: "glossy red finish", color: "red", img: "molded-plastic-wire-base-side-chair.png",
     img_sketch: "molded-plastic-wire-base-side-chair-sketch.png", dimension1: 18,
     dimension2: 22}],
-    roomFurniture: []
+    showFurniture: true,
+    createRoom: false
+
 
   }
 
@@ -54,7 +56,7 @@ class RoomIndex extends Component {
   getRoomId = clickedRoomId => {
     this.setState({
       clickedRoomId: clickedRoomId
-    }, ()=>console.log('clicked room id is',clickedRoomId))
+    })
   }
 
   //find room object with the id that matches the clickedRoomId
@@ -93,10 +95,12 @@ class RoomIndex extends Component {
       }, ()=>console.log(this.state.roomFurniture))
 
   }
-
+// chosenFurniture: [item, ...this.state.roomFurniture],
     addPiece = (item) => {
+      console.log(item, "added to chosen furniture with room id of", item.room_id);
       this.setState({
         chosenFurniture: [item, ...this.state.roomFurniture]
+        // roomFurniture: [item, ...this.state.roomFurniture]
       })
     }
 
@@ -144,30 +148,46 @@ class RoomIndex extends Component {
       // },()=>console.log(this.state.chosenFurniture))
 
 
+      furnitureToggle = () => {
+        this.setState({
+          showFurniture: !this.state.showFurniture
+        })
+        if(this.state.showFurniture === true){
+          document.querySelector('.show-furniture').innerText = 'Show Furniture'
+        } else {
+          document.querySelector('.show-furniture').innerText = 'X'
+        }
+      }
+
+      roomFormToggle = () => {
+        this.setState({
+          createRoom: !this.state.createRoom
+        })
+        if(this.state.createRoom === true){
+          document.querySelector('.create-room').innerText = 'Design A Room?'
+        } else {
+          document.querySelector('.create-room').innerText = "Don't Design A Room"
+        }
+      }
+
+
+
+
 
 
 render() {
-  // debugger
+
   const filteredFurniture = this.state.furniture.filter(f => {
-    return f.name.toLowerCase().includes(this.state.term.toLowerCase()) || f.color.toLowerCase().includes(this.state.term.toLowerCase())
-  })
-  console.log(this.state)
+  return f.name.toLowerCase().includes(this.state.term.toLowerCase()) || f.color.toLowerCase().includes(this.state.term.toLowerCase()) || f.category.toLowerCase().includes(this.state.term.toLowerCase())
+})
   return(
     <div>
-      <h1>RoomIndex</h1>
-      <h2>Your Rooms</h2>
-      { /*   <div>
-        {this.state.rooms.map(r => {
-          return <RoomCard
-                    key={r.id}
-                    room={r}
-                    getRoomId={this.getRoomId}
-                    getUserRoomFurniture={this.getUserRoomFurniture}
-                  />
-        })}
-      </div>*/}
 
-      <RoomForm addRoom={this.addRoom}/>
+      <br/><br/><br/>
+      <AllRooms rooms={this.state.rooms} getRoomId={this.getRoomId} getUserRoomFurniture={this.getUserRoomFurniture}/>
+      <Divider />
+      <Button className="create-room" basic color='violet' content='Design A Room?' onClick={()=>this.roomFormToggle()}/>
+      {this.state.createRoom ? <RoomForm addRoom={this.addRoom}/>: null}
       <RoomContainer
         rooms={this.state.rooms}
         currentRoom={this.state.clickedRoomId}
@@ -179,12 +199,22 @@ render() {
         roomFurniture={this.state.roomFurniture}
         allFurniture={this.state.furniture}
       />
-      <Search onSearchChange={this.handleSearch} open={false} />
-      <AllFurnitureContainer
-        getFurnitureId={this.getFurnitureId}
-        allFurniture={filteredFurniture}
-        clickedFurnitureId={this.state.clickedFurnitureId}
-      />
+    <Divider />
+
+      <Button className="show-furniture" basic color='violet' content='X' onClick={()=>this.furnitureToggle()}/>
+      {this.state.showFurniture ?
+        <div>
+          <Search onSearchChange={this.handleSearch} open={false} />
+          <AllFurnitureContainer
+          getFurnitureId={this.getFurnitureId}
+          allFurniture={filteredFurniture}
+          clickedFurnitureId={this.state.clickedFurnitureId}
+        />
+        </div>
+       : null}
+
+
+
     </div>
   )
 }

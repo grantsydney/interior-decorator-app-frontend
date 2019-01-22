@@ -11,6 +11,8 @@ import thunk from 'redux-thunk'
 import usersReducer from './reducers/usersReducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import registerServiceWorker from './registerServiceWorker'
+import RoomIndex from '../src/components/RoomIndex';
+import RoomForm from '../src/components/RoomForm';
 
 
 
@@ -22,7 +24,11 @@ const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <App />
+      <React.Fragment>
+        <Route exact path="/" component={App} />
+        <Route exact path="/rooms" component={RoomIndex} />
+        <Route exact path="/create_a_room" component={RoomForm} />
+      </React.Fragment>
     </Router>
   </Provider>,
   document.getElementById('root')
