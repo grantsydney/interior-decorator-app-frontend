@@ -12,7 +12,11 @@ class RoomCard extends Component {
 
      event.target.parentElement.parentElement.remove()
      let roomId = parseInt(event.target.dataset.id)
-     fetch(`http://localhost:3000/api/v1/users/1/rooms/${roomId}`, { method: 'DELETE' })
+     fetch(`http://localhost:3000/api/v1/users/1/rooms/${roomId}`, { method: 'DELETE',
+       headers: {
+         Authorization: `Bearer ${localStorage.getItem('jwt')}`
+       }
+   })
 
    }
 
@@ -24,15 +28,16 @@ render() {
 
       <div>
 
-      <Card raised color='violet' onClick={this.onClick} key={this.props.room.id} style={{margin:'20px'}}>
+      <Card raised color='violet' onClick={this.onClick} key={this.props.room.id} style={{margin:'20px', width:'120%'}}>
         <Card.Content>
-        <Card.Header className="room-card" style={{'fontSize':'2em'}}>{this.props.room.name}</Card.Header>
-        <Card.Description>
+        <Card.Header className="room-card" style={{'fontSize':'2em', 'textAlign':'center'}}>{this.props.room.name}</Card.Header>
+        <Card.Description style={{'margin':'auto', 'textAlign':'center'}}>
           <strong>Width:</strong>{this.props.room.dimension1}
             <br/>
           <strong>Height:</strong>{this.props.room.dimension2}
         </Card.Description>
-        <Button data-id={this.props.room.id} onClick={this.deleteRoom} basic color='violet'>
+        <br/>
+        <Button data-id={this.props.room.id} onClick={this.deleteRoom} basic color='violet' style={{'marginLeft':'39%'}}>
             X
           </Button>
       </Card.Content>

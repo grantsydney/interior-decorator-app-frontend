@@ -63,14 +63,12 @@
 }
 
 .room-card{
-  font-size: 3em;
-  color: black;
-  margin: auto;
-  padding: 10%;
+  /* padding: 5%; */
 }
 
 .furniture-card{
 margin: 10%;
+height: 300px;
 }
 
 .room-form{
@@ -81,3 +79,13 @@ margin: 10%;
 .room-container-name{
   font-size: 4em;
 }
+
+/* label focus color */
+  .input-field input[type=text]:focus + label {
+    color: #B962F1;
+}
+/* label underline focus color */
+  .input-field input[type=text]:focus {
+    border-bottom: 1px solid #B962F1;
+    box-shadow: 0 1px 0 0 #B962F1;
+  }

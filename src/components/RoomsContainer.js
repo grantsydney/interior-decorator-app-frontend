@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import Room from './Room';
+// import Room from './Room';
 import Draggable from 'react-draggable';
 import { Button, Confirm } from 'semantic-ui-react'
 import {Toast} from 'react-materialize'
 import { connect } from 'react-redux'
+// import withAuth from '../hocs/withAuth'
+
 
 
 class RoomContainer extends Component {
@@ -11,7 +13,7 @@ class RoomContainer extends Component {
   state = {
     currentRoomFurniture: [],
     updatedFurniture: {},
-    newRoomFurniture: [],
+    // newRoomFurniture: [],
     open: false,
     confirm: false
   }
@@ -40,7 +42,7 @@ class RoomContainer extends Component {
     this.setState({
       currentRoomFurniture: newFurnitureData,
       updatedFurniture: updatedFurniture
-    }, ()=>console.log(this.state.currentRoomFurniture))
+    }, ()=>console.log(this.state.updatedFurniture))
   }
 
 
@@ -55,8 +57,9 @@ class RoomContainer extends Component {
         newFurnitureData = this.props.chosenFurniture.map(rf=>{
           console.log(rf)
           // debugger
-          if (e.target.dataset.id == rf.id){
-            let newRoomFurnitureObject = {...rf, x_coord: ui.x, y_coord: ui.y,}
+          if (e.target.dataset.id == rf.furniture_id){
+            // debugger
+            let newRoomFurnitureObject = {...rf, x_coord: ui.x, y_coord: ui.y}
             updatedFurniture = newRoomFurnitureObject
             // debugger
             return newRoomFurnitureObject
@@ -86,11 +89,11 @@ class RoomContainer extends Component {
 // }
 
   updateFurniturePosition = () => {
-
-      fetch(`http://localhost:3000/api/v1/users/${this.props.user.id}/room_furniture/${this.state.updatedFurniture.id}`, {
+    // debugger
+      fetch(`http://localhost:3000/api/v1/users/${this.props.userId}/room_furniture/${this.state.updatedFurniture.id}`, {
           method: 'PATCH',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem('jwt')}`
           },
           body: JSON.stringify({
             room_furniture: {
@@ -118,7 +121,12 @@ class RoomContainer extends Component {
       // debugger
       event.target.remove()
       let roomFurnitureId = parseInt(event.target.dataset.id)
-      fetch(`http://localhost:3000/api/v1/users/1/room_furniture/${roomFurnitureId}`, { method: 'DELETE' })
+      fetch(`http://localhost:3000/api/v1/users/1/room_furniture/${roomFurnitureId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('jwt')}`
+        }
+       })
       this.setState({
         confirm: false
       })
@@ -127,28 +135,34 @@ class RoomContainer extends Component {
     // debugger
   }
 
-  show = () => {
-    this.setState({ open: true })
-
-
-
-  }
-
-  handleConfirm = () => {
-    this.setState({ open: false, confirm: true })
-
-  }
-  handleCancel = () => this.setState({ open: false })
+  // show = () => {
+  //   this.setState({ open: true })
+  //
+  //
+  //
+  // }
+  //
+  // handleConfirm = () => {
+  //   this.setState({ open: false, confirm: true })
+  //
+  // }
+  // handleCancel = () => this.setState({ open: false })
 
 
 
 
 
 saveMoved = (event) => {
-  if(this.state.updatedFurniture.id !== undefined){
-    window.Materialize.toast('Furniture Position Saved', 1000, 'orange rounded');
-    this.updateFurniturePosition(event);
-  } else{
+  console.log("DOES THIS WORK", this.state.updatedFurniture);
+  console.log(event.target);
+  // debugger
+  if (this.state.updatedFurniture){
+    if(this.state.updatedFurniture.id !== undefined){
+      window.Materialize.toast('Furniture Position Saved', 1000, 'orange rounded');
+      this.updateFurniturePosition(event);
+    }
+  }
+   else{
     alert('No Furniture Selected.')
   }
 
@@ -185,16 +199,34 @@ saveNew = (event) => {
 // {this.props.rooms.map(r => {
 //   return <Room rooms={this.props.rooms} room={r} key={r.id} getRoomId={this.props.getRoomId}/>
 // })}
+  test = () => {
+    return this.props.findCurrentFurniture.map(furn => {
+      return (
+        <Draggable
+                          key={furn.id}
+                          defaultClassName={`${furn.name}`}
+                          onDrag={this.handleDragForNewFurniture}
+                          bounds="parent"
+                          axis="both"
+                          handle={`.${furn.name}`}
+                          defaultPosition={{x: 0, y: 0}}
+                          scale={1}
+                          >
+
+                          <img data-id={furn.id} style={{position:'absolute'}}src={`./images/furniture_sketches/${furn.img_sketch}`} alt={furn.name} onDoubleClick={this.handleDoubleClick}/>
+
+
+                        </Draggable>
+      )
+    })
+  }
 
   render(){
-
-    // console.log(this.props);
-    // console.log(this.state.currentFurniture);
     return(
       <div id="mock-room">
 
       {this.props.findCurrentRoom ? <h3 className="room-container-name">{this.props.findCurrentRoom.name}</h3> :null}
-      <div className="mock-room parent" style={{border:this.props.findCurrentRoom ? "1px solid black":null,width:this.props.findCurrentRoom?`${(this.props.findCurrentRoom.dimension1)*40}px`:null,height:this.props.findCurrentRoom?`${(this.props.findCurrentRoom.dimension2)*40}px`:null,margin:'auto',position:"relative"}}>
+      <div className="mock-room parent" style={{border:this.props.findCurrentRoom ? "1px solid black":null,width:this.props.findCurrentRoom?`${(this.props.findCurrentRoom.dimension1)*30}px`:null,height:this.props.findCurrentRoom?`${(this.props.findCurrentRoom.dimension2)*30}px`:null,margin:'auto',position:"relative"}}>
         {this.props.roomFurniture ?
           this.props.roomFurniture.map(rf=> { return this.props.allFurniture.map(f => {
             if (f.id === rf.furniture_id){
@@ -228,39 +260,17 @@ saveNew = (event) => {
 
         }) : null }
 
-        <Confirm
-          open={this.state.open}
-          cancelButton='Never mind'
-          confirmButton="Let's do it"
-          onCancel={this.handleCancel}
-          onConfirm={this.handleConfirm}
-        />
-
-        {this.props.findCurrentFurniture ? <Draggable
-                          defaultClassName={`${this.props.findCurrentFurniture.name}`}
-                          onDrag={this.handleDragForNewFurniture}
-                          bounds="parent"
-                          axis="both"
-                          handle={`.${this.props.findCurrentFurniture.name}`}
-                          defaultPosition={{x: 0, y: 0}}
-                          scale={1}
-                          >
-
-                          <img data-id={this.props.chosenFurniture[0].id} style={{position:'absolute'}}src={`./images/furniture_sketches/${this.props.findCurrentFurniture.img_sketch}`} alt={this.props.findCurrentFurniture.name} onDoubleClick={this.handleDoubleClick}/>
-
-
-                        </Draggable> : null}
+        {this.props.findCurrentFurniture ? this.test() : null}
 
 
 
 
       </div>
-
-      {this.props.findCurrentRoom?<Button basic color='violet' content='Save Moved Furniture Piece' onClick={this.saveMoved} />:null}
+<br />
+      {this.props.findCurrentRoom?<Button style={{marginLeft:'41.5%'}} basic color='violet' content='Save Moved Furniture Piece' onClick={this.saveMoved} />:null}
 
     { /* {this.props.findCurrentRoom && this.state.updatedFurniture ? <Button basic color='violet' content='Save Moved Furniture Piece' onClick={this.updateFurniturePosition} />:null}*/}
       {this.props.findCurrentRoom ? <Button basic color='violet' content='Save New Furniture Piece' onClick={this.saveNew} /> :null}
-
 
 
       </div>
@@ -272,7 +282,6 @@ saveNew = (event) => {
 }
 
 function mapStateToProps(reduxStore) {
-  console.log(reduxStore)
   return {
     userId: reduxStore.usersReducer.user.id
   }

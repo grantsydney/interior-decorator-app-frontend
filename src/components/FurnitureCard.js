@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "semantic-ui-react";
+import { Card, Image } from "semantic-ui-react";
 
 const FurnitureCard = props => {
 
@@ -17,7 +17,7 @@ const FurnitureCard = props => {
             <img src={`./images/furniture/${props.furniture.img}`} alt={props.furniture.name}/>
             </div>
           </span>
-        <img src={`./images/furniture/${props.furniture.img}`} alt={props.furniture.name}/>
+        <Image src={`./images/furniture/${props.furniture.img}`} alt={props.furniture.name}/>
         </span>
       </div>
     </Card>

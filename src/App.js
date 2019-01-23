@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import './App.css';
 import RoomIndex from './components/RoomIndex'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
@@ -20,7 +20,7 @@ const App = props => {
         <Route exact path="/login" component={LoginForm} />
         <Route exact path="/signup" component={SignupForm} />
         <Route exact path="/RoomIndex" component={RoomIndex} />
-        
+
         <Route component={NotFound} />
       </Switch>
     </Fragment>

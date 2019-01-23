@@ -44,11 +44,11 @@ import {logOut} from '../actions/user'
 const Nav = (props) => {
 
   const handleClick = () => {
-    props.history.push('./login')
+    props.history.push('/login')
     props.logOut()
   }
 
-  console.log(props)
+  // console.log(props)
   return (
    <Menu pointing secondary>
     {props.loggedIn ? (
@@ -76,7 +76,6 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  console.log("kjhskjfhkshfjse", dispatch)
   return {
     logOut: () => dispatch(logOut())
   }
