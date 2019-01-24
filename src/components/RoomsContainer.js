@@ -215,7 +215,7 @@ saveNew = (event) => {
       <div id="mock-room">
 
       {this.props.findCurrentRoom ? <h3 className="room-container-name">{this.props.findCurrentRoom.name}</h3> :null}
-      <div className="mock-room parent" style={{border:this.props.findCurrentRoom ? "1px solid black":null,width:this.props.findCurrentRoom?`${(this.props.findCurrentRoom.dimension1)*30}px`:null,height:this.props.findCurrentRoom?`${(this.props.findCurrentRoom.dimension2)*30}px`:null,margin:'auto',position:"relative"}}>
+      <div className="mock-room parent" style={{border:this.props.findCurrentRoom ? "1px solid black":null,width:this.props.findCurrentRoom?`${(this.props.findCurrentRoom.dimension1)*40}px`:null,height:this.props.findCurrentRoom?`${(this.props.findCurrentRoom.dimension2)*40}px`:null,margin:'auto',position:"relative"}}>
         {this.props.roomFurniture ?
           this.props.roomFurniture.map(rf=> { return this.props.allFurniture.map(f => {
             if (f.id === rf.furniture_id){

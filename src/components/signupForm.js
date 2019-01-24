@@ -30,6 +30,7 @@ class SignupForm extends React.Component {
       You can do same with CSS, the main idea is that all the elements up to the `Grid`
       below must have a height of 100%.
     */}
+    <h1 className="app-title">EzDzine</h1>
     <style>{`
       body > div,
       body > div >

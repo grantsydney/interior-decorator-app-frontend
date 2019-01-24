@@ -137,10 +137,35 @@ height: 300px;
   font-family: 'Kalam', cursive;
 }
 
-.typing{
-  font-size: 7em;
+.typing-profile{
+  font-size: 4em;
   position: absolute;
-  top:30%;
-  left:34%;
+  left:27%;
+  font-family: 'Courgette', cursive;
+
+
+}
+
+.profile-app-description{
+  position:absolute;
+  top: 25%;
+  left:9%;
+  text-align:center;
+  font-size: 2em;
   font-family: 'Sarabun', sans-serif;
+}
+
+.inspiration-board-header{
+  position:absolute;
+  margin-left: 60%;
+  font-family: 'Sarabun', sans-serif;
+  font-size:2em;
+}
+
+.app-title{
+  position:absolute;
+  font-size:10em;
+  left: 40%;
+  top:18%;
+  font-family: 'Poppins', sans-serif;
 }
