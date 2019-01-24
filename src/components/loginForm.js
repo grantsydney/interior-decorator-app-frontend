@@ -4,6 +4,9 @@ import { withRouter, Redirect } from 'react-router'
 import { loginUser } from '../actions/user'
 // import { Button, Form, Segment, Message } from 'semantic-ui-react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import Typing from 'react-typing-animation';
+
+
 
 
 
@@ -35,7 +38,9 @@ sectionStyle = {
 
 <div className="login-background" style={{height:'1300px', backgroundImage: `url(./images/cabinet-ceiling-clean-1669799.jpg`, backgroundRepeat: 'no-repeat', backgroundPosition:'center',backgroundSize: 'cover'}}>
 
-
+  <Typing>
+      <span speed={200} className="typing">Designed By U</span>
+    </Typing>
       <div className='login-form'>
     <style>{`
       body > div,

@@ -182,7 +182,13 @@ class RoomIndex extends Component {
 
 
 
+      on = () => {
+        document.querySelector(".overlay").style.display = "block";
+      }
 
+      off = () => {
+        document.querySelector(".overlay").style.display = "none";
+      }
 
 
 render() {
@@ -193,7 +199,25 @@ render() {
 
   return(
     <div>
-      <br/>
+
+        <div className="overlay" onClick={()=>this.off()}>
+<div className="text">
+<h1 style={{fontSize:'50px', fontFamily: `'Kalam', cursive`}}>Need Help?</h1>
+<p>Create a mock-up of a new room by accessing a form through the "Design A Room" button</p>
+<p>Search for furniture pieces by color, material, or category and select the pieces you would like to add to your room.</p>
+<p>Drag the furniture around your mock-room until you are content with the design</p>
+<p>Double click on a piece of furniture to delete. And don't forget to save your furniture pieces!</p>
+
+
+</div>
+        </div>
+
+  <div style={{padding:"20px"}}>
+    <Button basic color='violet' onClick={()=>this.on()} content='?' style={{float:'right'}}/>
+
+  </div>
+
+
       <AllRooms rooms={this.state.rooms} getRoomId={this.getRoomId} getUserRoomFurniture={this.getUserRoomFurniture}/>
       <br />
       <Divider />
