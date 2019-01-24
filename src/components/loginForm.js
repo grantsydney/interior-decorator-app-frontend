@@ -6,9 +6,16 @@ import { loginUser } from '../actions/user'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
 
+
 class LoginForm extends React.Component {
 
   state = { username: '', password: '' }
+
+sectionStyle = {
+    width: "100%",
+    height: "400px",
+    backgroundImage: `url(./images/cabinet-ceiling-clean-1669799.jpg)`
+  };
 
   handleChange = (e, semanticInputData) => {
     this.setState({ [e.target.name]: e.target.value })
@@ -20,16 +27,16 @@ class LoginForm extends React.Component {
   }
 
   render() {
+
     console.log('%c LOGIN FORM PROPS: ', 'color: red', this.props)
     return this.props.loggedIn ? (
       <Redirect to="/profile" />
     ) : (
+
+<div className="login-background" style={{height:'1300px', backgroundImage: `url(./images/cabinet-ceiling-clean-1669799.jpg`, backgroundRepeat: 'no-repeat', backgroundPosition:'center',backgroundSize: 'cover'}}>
+
+
       <div className='login-form'>
-    {/*
-      Heads up! The styles below are necessary for the correct render of this example.
-      You can do same with CSS, the main idea is that all the elements up to the `Grid`
-      below must have a height of 100%.
-    */}
     <style>{`
       body > div,
       body > div >
@@ -37,19 +44,20 @@ class LoginForm extends React.Component {
         height: 100%;
       }
     `}</style>
-      <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as='h2' color='teal' textAlign='center'>
+  <Grid textAlign='center' style={{ height: '150%'}} verticalAlign='middle'>
+      <Grid.Column style={{ maxWidth: 550 }}>
+        {/*<Header style={{marginTop:'100%'}} as='h2' color='teal' textAlign='center'>
           Log-in to your account
-        </Header>
-        <Form onSubmit={this.handleLoginSubmit}
+        </Header>*/}
+        <Form style={{position:'absolute', top:485}} onSubmit={this.handleLoginSubmit}
         size="mini"
         key="mini"
         loading={this.props.authenticatingUser}
         error={this.props.failedLogin}
         size='large'>
         <Message error header={this.props.failedLogin ? this.props.error : null} />
-          <Segment stacked>
+          <Segment stacked style={{width:'450%', height:'300px'}}>
+            <br/>
             <Form.Input fluid icon='user' iconPosition='left'
               label="username"
               placeholder="Username"
@@ -67,20 +75,22 @@ class LoginForm extends React.Component {
               icon='lock'
               iconPosition='left'
               placeholder='Password'
+              style={{marginBottom:'20px'}}
             />
 
-            <Button color='teal' fluid size='large' type="submit">
+            <Button basic color='violet' size='large' type="submit">
               Login
             </Button>
+
           </Segment>
         </Form>
-        <Message>
-          New to us? <a href='/signup'>Sign Up</a>
-        </Message>
+        <span style={{fontSize:'1.5em', color:'#565556', position:'absolute', top:805, left:180}}>
+          New to us? <a style={{color:'#565556'}} href='/signup'>Sign Up</a>
+      </span>
       </Grid.Column>
     </Grid>
   </div>
-
+</div>
     )
   }
 }

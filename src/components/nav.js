@@ -6,41 +6,6 @@ import {logOut} from '../actions/user'
 
 
 
-
-
-
-// const Nav = ({ user: { loggedIn }, location: { pathname }, logOut }) => {
-//
-//   const handleClick = () => {
-//     logOut()
-//   }
-//
-//   return (
-//     <Menu pointing secondary>
-//       {loggedIn ? (
-//         <Fragment>
-//           <Menu.Item as={NavLink} to="/profile" name="Profile" active={pathname === '/profile'} />
-//           <Menu.Menu position="right"><button onClick={()=>handleClick()}>logout</button>
-//             {/* TODO: logout */}
-//             {/* <Menu.Item to="/logout" name="Logout" onClick={logout} /> */}
-//           </Menu.Menu>
-//         </Fragment>
-//       ) : (
-//         <Menu.Item as={NavLink} to="/login" name="Login" active={pathname === '/login'} />
-//       )}
-//     </Menu>
-//   )
-// }
-//
-// const mapStateToProps = ({ usersReducer: user }) => ({ user })
-//
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     logOut: () => dispatch(logOut())
-//   }
-// }
-//
-// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Nav))
 const Nav = (props) => {
 
   const handleClick = () => {
@@ -50,20 +15,23 @@ const Nav = (props) => {
 
   // console.log(props)
   return (
-   <Menu pointing secondary>
+    <>
     {props.loggedIn ? (
+   <Menu pointing secondary style={{ marginBottom: "0%"}}>
       <Fragment>
-        <Menu.Item as={NavLink} to="/profile" name="Profile" />
-        <Menu.Item as={NavLink} to="/RoomIndex" name="Your Rooms" />
+        <Menu.Item style={{fontFamily: `'Sarabun', sans-serif`, fontSize:'1.3em'
+}} as={NavLink} to="/profile" name="Profile" />
+        <Menu.Item style={{fontFamily: `'Sarabun', sans-serif`, fontSize:'1.3em'
+}} as={NavLink} to="/RoomIndex" name="Your Rooms" />
         <Menu.Menu position="right">
-            <Menu.Item name="Logout" onClick={()=>handleClick()}/>
+            <Menu.Item style={{fontFamily: `'Sarabun', sans-serif`, fontSize:'1.3em'
+    }} name="Logout" onClick={()=>handleClick()}/>
           {/* <Menu.Item to="/logout" name="Logout" onClick={logout} /> */}
         </Menu.Menu>
       </Fragment>
-    ) : (
-      <Menu.Item as={NavLink} to="/login" name="Login"  />
-    )}
   </Menu>
+) : null}
+</>
  )
 }
 // { user: { loggedIn }, location: { pathname } }

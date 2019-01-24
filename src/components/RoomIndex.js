@@ -195,6 +195,7 @@ render() {
     <div>
       <br/>
       <AllRooms rooms={this.state.rooms} getRoomId={this.getRoomId} getUserRoomFurniture={this.getUserRoomFurniture}/>
+      <br />
       <Divider />
       <Button style={{marginLeft:'1%'}} className="create-room" basic color='violet' content='Design A Room' onClick={()=>this.roomFormToggle()}/>
       {this.state.createRoom ? <RoomForm addRoom={this.addRoom} />: null}

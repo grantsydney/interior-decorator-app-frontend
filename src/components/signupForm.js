@@ -24,7 +24,7 @@ class SignupForm extends React.Component {
     return this.props.loggedIn ? (
       <Redirect to="/profile" />
     ) : (
-      <div className='login-form'>
+      <div className='signup-form' style={{height:'1300px', backgroundImage: `url(./images/cabinet-ceiling-clean-1669799.jpg`, backgroundRepeat: 'no-repeat', backgroundPosition:'center',backgroundSize: 'cover'}}>
     {/*
       Heads up! The styles below are necessary for the correct render of this example.
       You can do same with CSS, the main idea is that all the elements up to the `Grid`
@@ -38,10 +38,7 @@ class SignupForm extends React.Component {
       }
     `}</style>
       <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as='h2' color='teal' textAlign='center'>
-          Signup
-        </Header>
+      <Grid.Column style={{ maxWidth: 550 }}>
         <Form
         loading={this.props.authenticatingUser}
         error={this.props.failedLogin}
@@ -75,13 +72,14 @@ class SignupForm extends React.Component {
               icon='lock'
               iconPosition='left'
               placeholder='Password'
+              style={{marginBottom:'10px'}}
             />
 
-            <Button color='teal' fluid size='large' type="submit">
+          <Button basic color='violet' size='large' type="submit">
               Signup
             </Button>
           </Segment>
-          Have an Account? <a href='/login'>Login</a>
+          <span style={{fontSize:'2em', color:'#565556'}}>Have an Account? <a style={{color:'#565556'}} href='/login'>Login</a></span>
         </Form>
       </Grid.Column>
     </Grid>

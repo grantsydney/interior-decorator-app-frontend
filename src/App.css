@@ -47,7 +47,7 @@
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 500px;
-  background-color: black;
+  background-color: #737272;
   color: #fff;
   text-align: center;
   border-radius: 6px;
@@ -89,3 +89,24 @@ height: 300px;
     border-bottom: 1px solid #B962F1;
     box-shadow: 0 1px 0 0 #B962F1;
   }
+
+.room-container-name{
+  text-align: center;
+  font-family: 'Kalam', cursive;
+
+
+}
+
+.login-background{
+  -webkit-background-size: contain;
+   -moz-background-size: contain;
+   -o-background-size: contain;
+}
+
+.profile-background{
+  background: no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}

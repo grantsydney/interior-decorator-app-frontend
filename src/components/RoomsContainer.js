@@ -135,18 +135,6 @@ class RoomContainer extends Component {
     // debugger
   }
 
-  // show = () => {
-  //   this.setState({ open: true })
-  //
-  //
-  //
-  // }
-  //
-  // handleConfirm = () => {
-  //   this.setState({ open: false, confirm: true })
-  //
-  // }
-  // handleCancel = () => this.setState({ open: false })
 
 
 
@@ -222,6 +210,7 @@ saveNew = (event) => {
   }
 
   render(){
+
     return(
       <div id="mock-room">
 

@@ -10,11 +10,11 @@ const FurnitureCard = props => {
     <Card>
       <div className="furniture-card" onClick={()=>props.getFurnitureId(props.furniture.id)}>
       <span className="tooltip">
-          <span className="tooltiptext">
+          <span className="tooltiptext" style={{marginLeft:'200px'}}>
             <div>
-            <p>{props.furniture.name}</p>
-            <p>Description: {props.furniture.description}</p>
+              <br/>
             <img src={`./images/furniture/${props.furniture.img}`} alt={props.furniture.name}/>
+            <p>{props.furniture.description}</p>
             </div>
           </span>
         <Image src={`./images/furniture/${props.furniture.img}`} alt={props.furniture.name}/>

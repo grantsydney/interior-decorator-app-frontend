@@ -1,3 +1,20 @@
+on line 258 - 271
+
+{this.props.findCurrentFurniture ? <Draggable
+                  defaultClassName={`${this.props.findCurrentFurniture.name}`}
+                  onDrag={this.handleDragForNewFurniture}
+                  bounds="parent"
+                  axis="both"
+                  handle={`.${this.props.findCurrentFurniture.name}`}
+                  defaultPosition={{x: 0, y: 0}}
+                  scale={1}
+                  >
+
+                  <img data-id={this.props.chosenFurniture[0].id} style={{position:'absolute'}}src={`./images/furniture_sketches/${this.props.findCurrentFurniture.img_sketch}`} alt={this.props.findCurrentFurniture.name} onDoubleClick={this.handleDoubleClick}/>
+
+
+                </Draggable> : null}
+
 ReactDOM.render(
   <Provider store={store}>
     <Router>
