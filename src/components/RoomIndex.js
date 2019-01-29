@@ -19,8 +19,6 @@ class RoomIndex extends Component {
     showFurniture: true,
     createRoom: false,
     roomFurniture: []
-
-
   }
 
   //fetches
@@ -51,12 +49,12 @@ class RoomIndex extends Component {
 
   }
 
-  //find room by id
-  getRoomId = clickedRoomId => {
-    this.setState({
-      clickedRoomId: clickedRoomId
-    })
-  }
+    //find room by id
+    getRoomId = clickedRoomId => {
+      this.setState({
+        clickedRoomId: clickedRoomId
+      })
+    }
 
   //find room object with the id that matches the clickedRoomId
   findCurrentRoom() {
@@ -86,7 +84,6 @@ class RoomIndex extends Component {
   //get user's roomFurniture
   getUserRoomFurniture = clickedRoomId => {
     //fetch all user's room_furniture data
-    // debugger
     fetch(`http://localhost:3000/api/v1/users/${this.props.userId}/room_furniture/${clickedRoomId}`,{
     method: 'GET',
     headers: {
@@ -95,18 +92,14 @@ class RoomIndex extends Component {
   })
       .then(r => r.json())
       .then(roomFurnitureData => {
-        // debugger
         this.setState({ roomFurniture: roomFurnitureData })
       })
 
   }
-// chosenFurniture: [item, ...this.state.roomFurniture],
+
     addPiece = (item) => {
-      // console.log(item, "added to chosen furniture with room id of", item.room_id);
-      // debugger
       this.setState({
         chosenFurniture: [...this.state.chosenFurniture, item],
-        // roomFurniture: [item, ...this.state.roomFurniture]
       })
     }
 
@@ -131,31 +124,12 @@ class RoomIndex extends Component {
 
     //find furniture object with the id that matches the clickedFurnitureId
     findCurrentFurniture = () => {
-      // console.log("pls: ", this.state.clickedFurnitureId)
       return this.state.clickedFurnitureId.map(furnId => {
         return this.state.furniture.find(f => {
           return f.id === furnId
         })
       })
-      // debugger
-      // return test
     }
-      // let clickedFurniture = this.state.furniture.find(f =>{
-      //    return f.id === this.state.clickedFurnitureId
-      // })
-      // this.setState({
-      //   chosenFurniture: [...this.state.chosenFurniture, clickedFurniture]
-      // })
-      // if (this.state.clickedFurnitureId){
-      //   let clickedFurniture = this.state.furniture.map(f =>{
-      //     // debugger
-      //      return f.id === clickedFurnitureId
-      //   })
-      // }
-
-      // this.setState({
-      //   chosenFurniture: [...this.state.chosenFurniture, clickedFurniture]
-      // },()=>console.log(this.state.chosenFurniture))
 
 
       furnitureToggle = () => {
@@ -180,8 +154,6 @@ class RoomIndex extends Component {
         }
       }
 
-
-
       on = () => {
         document.querySelector(".overlay").style.display = "block";
       }
@@ -199,23 +171,19 @@ render() {
 
   return(
     <div>
-
         <div className="overlay" onClick={()=>this.off()}>
-<div className="text">
-<h1 style={{fontSize:'50px', fontFamily: `'Kalam', cursive`}}>Need Help?</h1>
-<p>Create a mock-up of a new room by accessing a form through the "Design A Room" button</p>
-<p>Search for furniture pieces by color, material, or category and select the pieces you would like to add to your room.</p>
-<p>Drag the furniture around your mock-room until you are content with the design</p>
-<p>Double click on a piece of furniture to delete. And don't forget to save your furniture pieces!</p>
-
-
-</div>
+          <div className="text">
+          <h1 style={{fontSize:'50px', fontFamily: `'Kalam', cursive`}}>Need Help?</h1>
+          <p>Create a mock-up of a new room by accessing a form through the "Design A Room" button</p>
+          <p>Search for furniture pieces by color, material, or category and select the pieces you would like to add to your room.</p>
+          <p>Drag the furniture around your mock-room until you are content with the design</p>
+          <p>Double click on a piece of furniture to delete. And don't forget to save your furniture pieces!</p>
+          </div>
         </div>
 
-  <div style={{padding:"20px"}}>
-    <Button basic color='violet' onClick={()=>this.on()} content='?' style={{float:'right'}}/>
-
-  </div>
+        <div style={{padding:"20px"}}>
+          <Button basic color='violet' onClick={()=>this.on()} content='?' style={{float:'right'}}/>
+        </div>
 
 
       <AllRooms rooms={this.state.rooms} getRoomId={this.getRoomId} getUserRoomFurniture={this.getUserRoomFurniture}/>
@@ -234,8 +202,7 @@ render() {
         roomFurniture={this.state.roomFurniture}
         allFurniture={this.state.furniture}
       />
-    <Divider />
-
+      <Divider />
       <Button className="show-furniture" basic color='violet' style={{marginLeft:'1%'}} content='X' onClick={()=>this.furnitureToggle()}/>
       {this.state.showFurniture ?
         <div>
@@ -249,15 +216,9 @@ render() {
         />
         </div>
        : null}
-
-
-
     </div>
   )
 }
-
-
-
 
 }
 

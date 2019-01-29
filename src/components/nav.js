@@ -13,30 +13,27 @@ const Nav = (props) => {
     props.logOut()
   }
 
-  // console.log(props)
   return (
     <>
     {props.loggedIn ? (
    <Menu pointing secondary style={{ marginBottom: "0%"}}>
       <Fragment>
         <Menu.Item style={{fontFamily: `'Sarabun', sans-serif`, fontSize:'1.3em'
-}} as={NavLink} to="/profile" name="Profile" />
+        }} as={NavLink} to="/profile" name="Profile" />
         <Menu.Item style={{fontFamily: `'Sarabun', sans-serif`, fontSize:'1.3em'
-}} as={NavLink} to="/RoomIndex" name="Your Rooms" />
+        }} as={NavLink} to="/RoomIndex" name="Your Rooms" />
         <Menu.Menu position="right">
             <Menu.Item style={{fontFamily: `'Sarabun', sans-serif`, fontSize:'1.3em'
-    }} name="Logout" onClick={()=>handleClick()}/>
-          {/* <Menu.Item to="/logout" name="Logout" onClick={logout} /> */}
+            }} name="Logout" onClick={()=>handleClick()}/>
         </Menu.Menu>
       </Fragment>
   </Menu>
-) : null}
-</>
+  ) : null}
+  </>
  )
 }
-// { user: { loggedIn }, location: { pathname } }
+
 const mapStateToProps = state => {
-  // debugger
   return(
     {loggedIn: state.usersReducer.loggedIn,
     pathname:state.location}

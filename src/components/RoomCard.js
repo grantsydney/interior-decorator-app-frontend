@@ -17,24 +17,19 @@ class RoomCard extends Component {
          Authorization: `Bearer ${localStorage.getItem('jwt')}`
        }
    })
-
    }
 
 
 render() {
   return(
-
-
-
-      <div>
-
+    <div>
       <Card raised color='violet' onClick={this.onClick} key={this.props.room.id}>
         <Card.Content>
         <Card.Header className="room-card" style={{'fontSize':'2em', 'textAlign':'center', fontFamily: `'Kalam', cursive`
-}}>{this.props.room.name}</Card.Header>
+        }}>{this.props.room.name}</Card.Header>
         <Card.Description style={{'margin':'auto', 'textAlign':'center', fontFamily: `'Kalam', cursive`, fontSize:'1.2em'}}>
           <strong>Width:</strong>{this.props.room.dimension1}ft
-            <br/>
+          <br/>
           <strong>Height:</strong>{this.props.room.dimension2}ft
         </Card.Description>
         <br/>
@@ -42,17 +37,10 @@ render() {
             X
           </Button>
       </Card.Content>
-
       </Card>
-
-
-
-      </div>
-
+    </div>
   )
-}
-
-
+  } 
 }
 
 export default RoomCard;

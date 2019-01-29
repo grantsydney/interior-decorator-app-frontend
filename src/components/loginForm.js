@@ -2,21 +2,16 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router'
 import { loginUser } from '../actions/user'
-// import { Button, Form, Segment, Message } from 'semantic-ui-react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-
-
-
-
 
 class LoginForm extends React.Component {
 
   state = { username: '', password: '' }
 
-sectionStyle = {
-    width: "100%",
-    height: "400px",
-    backgroundImage: `url(./images/cabinet-ceiling-clean-1669799.jpg)`
+  sectionStyle = {
+      width: "100%",
+      height: "400px",
+      backgroundImage: `url(./images/cabinet-ceiling-clean-1669799.jpg)`
   };
 
   handleChange = (e, semanticInputData) => {
@@ -35,10 +30,10 @@ sectionStyle = {
       <Redirect to="/profile" />
     ) : (
 
-<div className="login-background" style={{height:'1300px', backgroundImage: `url(./images/cabinet-ceiling-clean-1669799.jpg`, backgroundRepeat: 'no-repeat', backgroundPosition:'center',backgroundSize: 'cover'}}>
+    <div className="login-background" style={{height:'1300px', backgroundImage: `url(./images/cabinet-ceiling-clean-1669799.jpg`, backgroundRepeat: 'no-repeat', backgroundPosition:'center',backgroundSize: 'cover'}}>
 
-  <h1 className="app-title">EzDzine</h1>
-      <div className='login-form'>
+    <h1 className="app-title">EzDzine</h1>
+    <div className='login-form'>
     <style>{`
       body > div,
       body > div >
@@ -46,11 +41,8 @@ sectionStyle = {
         height: 100%;
       }
     `}</style>
-  <Grid textAlign='center' style={{ height: '150%'}} verticalAlign='middle'>
+    <Grid textAlign='center' style={{ height: '150%'}} verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 550 }}>
-        {/*<Header style={{marginTop:'100%'}} as='h2' color='teal' textAlign='center'>
-          Log-in to your account
-        </Header>*/}
         <Form style={{position:'absolute', top:485,fontFamily:`'Courgette', cursive`}} onSubmit={this.handleLoginSubmit}
         size="mini"
         key="mini"
@@ -91,8 +83,8 @@ sectionStyle = {
       </span>
       </Grid.Column>
     </Grid>
+    </div>
   </div>
-</div>
     )
   }
 }

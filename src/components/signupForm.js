@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router'
 import { signupUser } from '../actions/user'
-// import { Button, Form, Segment, Message } from 'semantic-ui-react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
 
@@ -25,11 +24,6 @@ class SignupForm extends React.Component {
       <Redirect to="/profile" />
     ) : (
       <div className='signup-form' style={{height:'1300px', backgroundImage: `url(./images/cabinet-ceiling-clean-1669799.jpg`, backgroundRepeat: 'no-repeat', backgroundPosition:'center',backgroundSize: 'cover'}}>
-    {/*
-      Heads up! The styles below are necessary for the correct render of this example.
-      You can do same with CSS, the main idea is that all the elements up to the `Grid`
-      below must have a height of 100%.
-    */}
     <h1 className="app-title">EzDzine</h1>
     <style>{`
       body > div,

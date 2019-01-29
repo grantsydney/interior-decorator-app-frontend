@@ -19,65 +19,58 @@ const Profile = ({ name}) => (
         <span style={{fontFamily:`'Courgette', cursive`}} speed={200} className="typing-profile">plan out</span>
         <Typing.Backspace count={20} />
         <span style={{fontFamily:`font-family: 'Courgette', cursive`}} speed={200} className="typing-profile">design.</span>
-
       </Typing>
       <br />
-      {/*<span>your space.</span>*/}
       <br /><br /><br /><br />
       <span>With <strong>EzDzine</strong>, the process of designing your room has never been so seamless.</span>
-
-  {  /*    access to hundreds of furniture pieces and 20+ designers,</span><br /><br /><span>we aim to make the process of designing your room seamless.</span>*/}
     </div>
 
     <p className="inspiration-board-header" style={{marginLeft:'10%',marginTop:'34%'}}>Inspiration</p>
     <div style={{marginTop:'30%'}}>
-<Card.Group centered>
+    <Card.Group centered>
       <Card raised color='violet'>
-     <Image src={`../images/inspiration-sites/house-beautiful.png`} />
-     <Card.Content>
+      <Image src={`../images/inspiration-sites/house-beautiful.png`} />
+      <Card.Content>
        <Card.Header style={{color:'black', textAlign:'center'}}><a href='https://www.housebeautiful.com/design-inspiration' target="_blank">
          House Beautiful
        </a></Card.Header>
      </Card.Content>
    </Card>
    <Card raised color='violet'>
-  <Image src={`../images/inspiration-sites/architectural-digest.png`} />
-  <Card.Content>
-    <Card.Header style={{color:'black', textAlign:'center'}}><a href='https://www.architecturaldigest.com/gallery/modern-design-inspiration' target="_blank">
+     <Image src={`../images/inspiration-sites/architectural-digest.png`} />
+     <Card.Content>
+       <Card.Header style={{color:'black', textAlign:'center'}}><a href='https://www.architecturaldigest.com/gallery/modern-design-inspiration' target="_blank">
       Architectural Digest
-    </a></Card.Header>
+      </a></Card.Header>
   </Card.Content>
-</Card>
-<Card raised color='violet'>
-<Image src={`../images/inspiration-sites/pintrest.png`} />
-<Card.Content>
- <Card.Header style={{color:'black', textAlign:'center'}}><a href='https://www.pinterest.com/moderncoop/mid-century-modern-inspiration/' target="_blank">
-   Pintrest
- </a></Card.Header>
-</Card.Content>
-</Card>
-<Card raised color='violet'>
-<Image src={`../images/inspiration-sites/elle-decor.png`} />
-<Card.Content>
- <Card.Header style={{color:'black', textAlign:'center'}}><a href='https://www.elledecor.com/design-decorate/room-ideas/g84/midcentury-living-rooms/' target="_blank">
-   Elle Decor
- </a></Card.Header>
-</Card.Content>
-</Card>
-<Card raised color='violet'>
-<Image src={`../images/inspiration-sites/houzz.png`} />
-<Card.Content>
- <Card.Header style={{color:'black', textAlign:'center'}}><a href='https://www.houzz.com/photos/modern/bedroom' target="_blank">
-   Houzz
- </a></Card.Header>
-</Card.Content>
-</Card>
+  </Card>
+  <Card raised color='violet'>
+    <Image src={`../images/inspiration-sites/pintrest.png`} />
+    <Card.Content>
+     <Card.Header style={{color:'black', textAlign:'center'}}><a href='https://www.pinterest.com/moderncoop/mid-century-modern-inspiration/' target="_blank">
+       Pintrest
+     </a></Card.Header>
+    </Card.Content>
+  </Card>
+  <Card raised color='violet'>
+    <Image src={`../images/inspiration-sites/elle-decor.png`} />
+    <Card.Content>
+     <Card.Header style={{color:'black', textAlign:'center'}}><a href='https://www.elledecor.com/design-decorate/room-ideas/g84/midcentury-living-rooms/' target="_blank">
+       Elle Decor
+     </a></Card.Header>
+    </Card.Content>
+  </Card>
+  <Card raised color='violet'>
+    <Image src={`../images/inspiration-sites/houzz.png`} />
+    <Card.Content>
+     <Card.Header style={{color:'black', textAlign:'center'}}><a href='https://www.houzz.com/photos/modern/bedroom' target="_blank">
+       Houzz
+     </a></Card.Header>
+    </Card.Content>
+  </Card>
 </Card.Group>
-  </div>
-
-
-
-  </div>
+</div>
+</div>
 )
 
 const mapStateToProps = ({ usersReducer: { user: { name } } }) => ({
