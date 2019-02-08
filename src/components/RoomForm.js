@@ -41,7 +41,6 @@ class RoomForm extends React.Component {
     .then(r=>r.json())
     .then(r => this.props.addRoom(r))
 
-    //get form to go back to blank input fields
 
     this.setState({
       name: '',
@@ -52,8 +51,6 @@ class RoomForm extends React.Component {
 
 
   }
-
-  // console.log(props);
   render(){
     return (
       <div className="room-form">

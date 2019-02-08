@@ -6,41 +6,6 @@ import {logOut} from '../actions/user'
 
 
 
-
-
-
-// const Nav = ({ user: { loggedIn }, location: { pathname }, logOut }) => {
-//
-//   const handleClick = () => {
-//     logOut()
-//   }
-//
-//   return (
-//     <Menu pointing secondary>
-//       {loggedIn ? (
-//         <Fragment>
-//           <Menu.Item as={NavLink} to="/profile" name="Profile" active={pathname === '/profile'} />
-//           <Menu.Menu position="right"><button onClick={()=>handleClick()}>logout</button>
-//             {/* TODO: logout */}
-//             {/* <Menu.Item to="/logout" name="Logout" onClick={logout} /> */}
-//           </Menu.Menu>
-//         </Fragment>
-//       ) : (
-//         <Menu.Item as={NavLink} to="/login" name="Login" active={pathname === '/login'} />
-//       )}
-//     </Menu>
-//   )
-// }
-//
-// const mapStateToProps = ({ usersReducer: user }) => ({ user })
-//
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     logOut: () => dispatch(logOut())
-//   }
-// }
-//
-// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Nav))
 const Nav = (props) => {
 
   const handleClick = () => {
@@ -55,8 +20,6 @@ const Nav = (props) => {
       <Fragment>
         <Menu.Item as={NavLink} to="/profile" name="Profile" />
         <Menu.Menu position="right"><button onClick={()=>handleClick()}>logout</button>
-          {/* TODO: logout */}
-          {/* <Menu.Item to="/logout" name="Logout" onClick={logout} /> */}
         </Menu.Menu>
       </Fragment>
     ) : (
@@ -65,9 +28,8 @@ const Nav = (props) => {
   </Menu>
  )
 }
-// { user: { loggedIn }, location: { pathname } }
+
 const mapStateToProps = state => {
-  // debugger
   return(
     {loggedIn: state.usersReducer.loggedIn,
     pathname:state.location}

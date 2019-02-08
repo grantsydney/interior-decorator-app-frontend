@@ -88,7 +88,7 @@ class RoomIndex extends Component {
       }, ()=>console.log(this.state.roomFurniture))
 
   }
-// chosenFurniture: [item, ...this.state.roomFurniture],
+
     addPiece = (item) => {
       console.log(item, "added to chosen furniture with room id of", item.room_id);
       this.setState({
