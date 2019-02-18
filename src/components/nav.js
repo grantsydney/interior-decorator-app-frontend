@@ -18,7 +18,6 @@ const Nav = (props) => {
     {props.loggedIn ? (
    <Menu pointing secondary style={{ marginBottom: "0%"}}>
       <Fragment>
-<<<<<<< HEAD
         <Menu.Item style={{fontFamily: `'Sarabun', sans-serif`, fontSize:'1.3em'
         }} as={NavLink} to="/profile" name="Profile" />
         <Menu.Item style={{fontFamily: `'Sarabun', sans-serif`, fontSize:'1.3em'
@@ -26,10 +25,6 @@ const Nav = (props) => {
         <Menu.Menu position="right">
             <Menu.Item style={{fontFamily: `'Sarabun', sans-serif`, fontSize:'1.3em'
             }} name="Logout" onClick={()=>handleClick()}/>
-=======
-        <Menu.Item as={NavLink} to="/profile" name="Profile" />
-        <Menu.Menu position="right"><button onClick={()=>handleClick()}>logout</button>
->>>>>>> 00189701ab76921cc1f4e53629e0cf1030bbafe4
         </Menu.Menu>
       </Fragment>
   </Menu>

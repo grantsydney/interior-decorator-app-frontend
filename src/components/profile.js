@@ -4,18 +4,12 @@ import { Card, Image, Icon } from 'semantic-ui-react'
 import withAuth from '../hocs/withAuth'
 import Typing from 'react-typing-animation';
 
+
+// props: { user: { avatar: 'url', username: 'Chandler Bing', bio: 'bio' } }
 const Profile = ({ name}) => (
 
   <div className="profile-background" style={{height:'1200px', backgroundImage: `url(./images/close-up-colors-craftsmanship-1573806.jpg`, backgroundRepeat: 'no-repeat', backgroundPosition:'center',backgroundSize: 'cover'}}>
 
-<<<<<<< HEAD
-=======
-
-const Profile = ({ username}) => (
-  <Card>
-    <Card.Content>
-      <Card.Header>Username: {username}</Card.Header>
->>>>>>> 00189701ab76921cc1f4e53629e0cf1030bbafe4
 
     <h1 style={{fontFamily:`'Sarabun', sans-serif;`,fontSize:'3em',top:'5%'}}>Welcome, {name}</h1>
     <div className="profile-app-description" style={{marginLeft:'20%'}}>
