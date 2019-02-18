@@ -31,13 +31,6 @@
   }
 }
 
-/* .mock-room {
-  border: 1px solid black;
-  width: 80%;
-  height: 450px;
-  margin: auto;
-} */
-
 .tooltip {
   position: relative;
   display: inline-block;
@@ -47,7 +40,7 @@
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 500px;
-  background-color: black;
+  background-color: #737272;
   color: #fff;
   text-align: center;
   border-radius: 6px;
@@ -63,14 +56,12 @@
 }
 
 .room-card{
-  font-size: 3em;
-  color: black;
-  margin: auto;
-  padding: 10%;
+  /* padding: 5%; */
 }
 
 .furniture-card{
 margin: 10%;
+height: 300px;
 }
 
 .room-form{
@@ -80,4 +71,94 @@ margin: 10%;
 
 .room-container-name{
   font-size: 4em;
+}
+
+/* label focus color */
+  .input-field input[type=text]:focus + label {
+    color: #B962F1;
+}
+/* label underline focus color */
+  .input-field input[type=text]:focus {
+    border-bottom: 1px solid #B962F1;
+    box-shadow: 0 1px 0 0 #B962F1;
+  }
+
+.room-container-name{
+  text-align: center;
+  font-family: 'Kalam', cursive;
+
+
+}
+
+.login-background{
+  -webkit-background-size: contain;
+   -moz-background-size: contain;
+   -o-background-size: contain;
+}
+
+.profile-background{
+  background: no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+.text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 30px;
+  text-align: center;
+  color: white;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  font-family: 'Kalam', cursive;
+}
+
+.typing-profile{
+  font-size: 4em;
+  position: absolute;
+  left:27%;
+  font-family: 'Courgette', cursive;
+
+
+}
+
+.profile-app-description{
+  position:absolute;
+  top: 25%;
+  left:9%;
+  text-align:center;
+  font-size: 2em;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.inspiration-board-header{
+  position:absolute;
+  margin-left: 60%;
+  font-family: 'Sarabun', sans-serif;
+  font-size:2em;
+}
+
+.app-title{
+  position:absolute;
+  font-size:10em;
+  left: 37%;
+  top:18%;
+  font-family: 'Poppins', sans-serif;
 }

@@ -2,11 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router'
 import { loginUser } from '../actions/user'
-import { Button, Form, Segment, Message } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
 class LoginForm extends React.Component {
 
   state = { username: '', password: '' }
+
+  sectionStyle = {
+      width: "100%",
+      height: "400px",
+      backgroundImage: `url(./images/cabinet-ceiling-clean-1669799.jpg)`
+  };
 
   handleChange = (e, semanticInputData) => {
     this.setState({ [e.target.name]: e.target.value })
@@ -18,40 +24,67 @@ class LoginForm extends React.Component {
   }
 
   render() {
+
     console.log('%c LOGIN FORM PROPS: ', 'color: red', this.props)
     return this.props.loggedIn ? (
       <Redirect to="/profile" />
     ) : (
-      <Segment>
-        <Form
-          onSubmit={this.handleLoginSubmit}
-          size="mini"
-          key="mini"
-          loading={this.props.authenticatingUser}
-          error={this.props.failedLogin}
-        >
-          <Message error header={this.props.failedLogin ? this.props.error : null} />
-          <Form.Group widths="equal">
-            <Form.Input
+
+    <div className="login-background" style={{height:'1300px', backgroundImage: `url(./images/cabinet-ceiling-clean-1669799.jpg`, backgroundRepeat: 'no-repeat', backgroundPosition:'center',backgroundSize: 'cover'}}>
+
+    <h1 className="app-title">EzDzine</h1>
+    <div className='login-form'>
+    <style>{`
+      body > div,
+      body > div >
+      body > div > > div.login-form {
+        height: 100%;
+      }
+    `}</style>
+    <Grid textAlign='center' style={{ height: '150%'}} verticalAlign='middle'>
+      <Grid.Column style={{ maxWidth: 550 }}>
+        <Form style={{position:'absolute', top:485,fontFamily:`'Courgette', cursive`}} onSubmit={this.handleLoginSubmit}
+        size="mini"
+        key="mini"
+        loading={this.props.authenticatingUser}
+        error={this.props.failedLogin}
+        size='large'>
+        <Message error header={this.props.failedLogin ? this.props.error : null} />
+          <Segment stacked style={{width:'450%', height:'300px'}}>
+            <br/>
+            <Form.Input fluid icon='user' iconPosition='left'
+              placeholder="Username"
               label="username"
-              placeholder="username"
               name="username"
               onChange={this.handleChange}
               value={this.state.username}
-            />
+              />
             <Form.Input
               type="password"
               label="password"
-              placeholder="password"
               name="password"
               onChange={this.handleChange}
               value={this.state.password}
+              fluid
+              icon='lock'
+              iconPosition='left'
+              placeholder='Password'
+              style={{marginBottom:'20px'}}
             />
-          </Form.Group>
-          <Button type="submit">Login</Button>
+
+            <Button basic color='violet' size='large' type="submit">
+              Login
+            </Button>
+
+          </Segment>
         </Form>
-        Create an account? <a href='/signup'>Signup</a>
-      </Segment>
+        <span style={{fontSize:'1.5em', color:'#565556', position:'absolute', top:805, left:180}}>
+          New to us? <a style={{color:'#565556'}} href='/signup'>Sign Up</a>
+      </span>
+      </Grid.Column>
+    </Grid>
+    </div>
+  </div>
     )
   }
 }

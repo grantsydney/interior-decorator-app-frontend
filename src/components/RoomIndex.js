@@ -3,12 +3,9 @@ import RoomForm from './RoomForm'
 import RoomContainer from './RoomsContainer'
 import { Search, Button, Divider } from 'semantic-ui-react'
 import AllFurnitureContainer from './AllFurnitureContainer'
+import { connect } from 'react-redux'
+import withAuth from '../hocs/withAuth'
 import AllRooms from './AllRooms'
-
-
-
-
-
 
 class RoomIndex extends Component {
 
@@ -16,28 +13,35 @@ class RoomIndex extends Component {
     rooms: [],
     furniture: [],
     clickedRoomId: '',
-    clickedFurnitureId:'',
+    clickedFurnitureId: [],
     term: '',
-    chosenFurniture: [{id: 2, name: "Chair", category: "seating", description: "glossy red finish", color: "red", img: "molded-plastic-wire-base-side-chair.png",
-    img_sketch: "molded-plastic-wire-base-side-chair-sketch.png", dimension1: 18,
-    dimension2: 22}],
+    chosenFurniture: [{name: 'Finn-Juhl-Credenza', category: 'workspace', description: 'Storage unit with drawers and trays.', color: 'wood', img: 'Finn-Juhl-Credenza.png', img_sketch: 'Finn-Juhl-Credenza-sketch.png', dimension1: 0, dimension2: 0}],
     showFurniture: true,
-    createRoom: false
-
-
+    createRoom: false,
+    roomFurniture: []
   }
 
   //fetches
   componentDidMount() {
     //fetch all user's rooms data
-    fetch(`http://localhost:3000/api/v1/users/1/rooms`)
+    fetch(`http://localhost:3000/api/v1/users/${this.props.userId}/rooms`,{
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+      }
+    })
       .then(r => r.json())
       .then(roomData => {
         this.setState({ rooms: roomData })
       })
 
     //fetch all furniture data
-    fetch(`http://localhost:3000/api/v1/furnitures`)
+    fetch(`http://localhost:3000/api/v1/furnitures`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+      }
+    })
       .then(r => r.json())
       .then(furnitureData => {
         this.setState({ furniture: furnitureData })
@@ -45,12 +49,12 @@ class RoomIndex extends Component {
 
   }
 
-  //find room by id
-  getRoomId = clickedRoomId => {
-    this.setState({
-      clickedRoomId: clickedRoomId
-    })
-  }
+    //find room by id
+    getRoomId = clickedRoomId => {
+      this.setState({
+        clickedRoomId: clickedRoomId
+      })
+    }
 
   //find room object with the id that matches the clickedRoomId
   findCurrentRoom() {
@@ -61,7 +65,7 @@ class RoomIndex extends Component {
 
   addRoom = (room) => {
     this.setState({
-      rooms: [room, ...this.state.rooms]
+      rooms: [...this.state.rooms, room]
     })
   }
 
@@ -72,42 +76,42 @@ class RoomIndex extends Component {
   //find furniture by id
   getFurnitureId = clickedFurnitureId => {
     this.setState({
-      clickedFurnitureId: clickedFurnitureId
+      clickedFurnitureId: [...this.state.clickedFurnitureId, clickedFurnitureId]
     },()=>console.log("clicked furniture id is",this.state.clickedFurnitureId))
   }
+
 
   //get user's roomFurniture
   getUserRoomFurniture = clickedRoomId => {
     //fetch all user's room_furniture data
-    // debugger
-    fetch(`http://localhost:3000/api/v1/users/1/room_furniture/${clickedRoomId}`)
+    fetch(`http://localhost:3000/api/v1/users/${this.props.userId}/room_furniture/${clickedRoomId}`,{
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('jwt')}`
+    }
+  })
       .then(r => r.json())
       .then(roomFurnitureData => {
-        // debugger
         this.setState({ roomFurniture: roomFurnitureData })
-      }, ()=>console.log(this.state.roomFurniture))
+      })
 
   }
-// chosenFurniture: [item, ...this.state.roomFurniture],
+
     addPiece = (item) => {
-      console.log(item, "added to chosen furniture with room id of", item.room_id);
       this.setState({
-        chosenFurniture: [item, ...this.state.roomFurniture]
-        // roomFurniture: [item, ...this.state.roomFurniture]
+        chosenFurniture: [...this.state.chosenFurniture, item],
       })
     }
 
     saveFurniturePiece = (clickedFurnitureId, clickedRoomId, xCoord, yCoord) => {
       //onClick of save button, creates POST request to roomFurniture table with all 4 parameters
-      // debugger
-
-      fetch("http://localhost:3000/api/v1/users/1/room_furniture", {
+      fetch(`http://localhost:3000/api/v1/users/${this.props.userId}/room_furniture`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem('jwt')}`},
         body: JSON.stringify({
           room_furniture: {
             room_id: clickedRoomId,
-            furniture_id: clickedFurnitureId,
+            furniture_id: clickedFurnitureId[clickedFurnitureId.length - 1],
             x_coord: xCoord,
             y_coord: yCoord
           }
@@ -119,27 +123,13 @@ class RoomIndex extends Component {
     }
 
     //find furniture object with the id that matches the clickedFurnitureId
-    findCurrentFurniture() {
-      return this.state.furniture.find(f =>{
-        return f.id === this.state.clickedFurnitureId
+    findCurrentFurniture = () => {
+      return this.state.clickedFurnitureId.map(furnId => {
+        return this.state.furniture.find(f => {
+          return f.id === furnId
+        })
       })
     }
-      // let clickedFurniture = this.state.furniture.find(f =>{
-      //    return f.id === this.state.clickedFurnitureId
-      // })
-      // this.setState({
-      //   chosenFurniture: [...this.state.chosenFurniture, clickedFurniture]
-      // })
-      // if (this.state.clickedFurnitureId){
-      //   let clickedFurniture = this.state.furniture.map(f =>{
-      //     // debugger
-      //      return f.id === clickedFurnitureId
-      //   })
-      // }
-
-      // this.setState({
-      //   chosenFurniture: [...this.state.chosenFurniture, clickedFurniture]
-      // },()=>console.log(this.state.chosenFurniture))
 
 
       furnitureToggle = () => {
@@ -158,15 +148,19 @@ class RoomIndex extends Component {
           createRoom: !this.state.createRoom
         })
         if(this.state.createRoom === true){
-          document.querySelector('.create-room').innerText = 'Design A Room?'
+          document.querySelector('.create-room').innerText = 'Design A Room'
         } else {
-          document.querySelector('.create-room').innerText = "Don't Design A Room"
+          document.querySelector('.create-room').innerText = "X"
         }
       }
 
+      on = () => {
+        document.querySelector(".overlay").style.display = "block";
+      }
 
-
-
+      off = () => {
+        document.querySelector(".overlay").style.display = "none";
+      }
 
 
 render() {
@@ -174,14 +168,26 @@ render() {
   const filteredFurniture = this.state.furniture.filter(f => {
   return f.name.toLowerCase().includes(this.state.term.toLowerCase()) || f.color.toLowerCase().includes(this.state.term.toLowerCase()) || f.category.toLowerCase().includes(this.state.term.toLowerCase())
 })
+
   return(
     <div>
-
-      <br/><br/><br/>
+        <div className="overlay" onClick={()=>this.off()}>
+          <div className="text">
+          <h1 style={{fontSize:'50px', fontFamily: `'Kalam', cursive`}}>Need Help?</h1>
+          <p>Create a mock-up of a new room by accessing a form through the "Design A Room" button</p>
+          <p>Search for furniture pieces by color, material, or category and select the pieces you would like to add to your room.</p>
+          <p>Drag the furniture around your mock-room until you are content with the design</p>
+          <p>Double click on a piece of furniture to delete. And don't forget to save your furniture pieces!</p>
+          </div>
+        </div>
+        <div style={{padding:"20px"}}>
+          <Button basic color='violet' onClick={()=>this.on()} content='?' style={{float:'right'}}/>
+        </div>
       <AllRooms rooms={this.state.rooms} getRoomId={this.getRoomId} getUserRoomFurniture={this.getUserRoomFurniture}/>
+      <br />
       <Divider />
-      <Button className="create-room" basic color='violet' content='Design A Room?' onClick={()=>this.roomFormToggle()}/>
-      {this.state.createRoom ? <RoomForm addRoom={this.addRoom}/>: null}
+      <Button style={{marginLeft:'1%'}} className="create-room" basic color='violet' content='Design A Room' onClick={()=>this.roomFormToggle()}/>
+      {this.state.createRoom ? <RoomForm addRoom={this.addRoom} />: null}
       <RoomContainer
         rooms={this.state.rooms}
         currentRoom={this.state.clickedRoomId}
@@ -193,12 +199,13 @@ render() {
         roomFurniture={this.state.roomFurniture}
         allFurniture={this.state.furniture}
       />
-    <Divider />
-
-      <Button className="show-furniture" basic color='violet' content='X' onClick={()=>this.furnitureToggle()}/>
+      <Divider />
+      <Button className="show-furniture" basic color='violet' style={{marginLeft:'1%'}} content='X' onClick={()=>this.furnitureToggle()}/>
       {this.state.showFurniture ?
         <div>
-          <Search onSearchChange={this.handleSearch} open={false} />
+          <br />
+          <Search style={{marginLeft:'1%'}} onSearchChange={this.handleSearch} open={false} />
+          <br />
           <AllFurnitureContainer
           getFurnitureId={this.getFurnitureId}
           allFurniture={filteredFurniture}
@@ -206,14 +213,13 @@ render() {
         />
         </div>
        : null}
-
-
-
     </div>
   )
 }
-
-
 }
-
-export default RoomIndex;
+function mapStateToProps(reduxStore) {
+  return {
+    userId: reduxStore.usersReducer.user.id
+  }
+}
+export default withAuth(connect(mapStateToProps)(RoomIndex));
