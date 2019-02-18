@@ -23,13 +23,21 @@ render() {
 
       })}
 
+<<<<<<< HEAD
 
       </div>
 
+=======
+      </div>
+>>>>>>> 00189701ab76921cc1f4e53629e0cf1030bbafe4
     </div>
   )
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 00189701ab76921cc1f4e53629e0cf1030bbafe4
 }
 
 export default Room;

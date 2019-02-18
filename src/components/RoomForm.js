@@ -41,10 +41,15 @@ class RoomForm extends React.Component {
       })
     })
     .then(r=>r.json())
+<<<<<<< HEAD
     .then(r => {
       console.log("props are: ", this.props)
       this.props.addRoom(r)
     })
+=======
+    .then(r => this.props.addRoom(r))
+
+>>>>>>> 00189701ab76921cc1f4e53629e0cf1030bbafe4
 
     this.setState({
       name: '',
@@ -55,7 +60,10 @@ class RoomForm extends React.Component {
 
 
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 00189701ab76921cc1f4e53629e0cf1030bbafe4
   render(){
     return (
       <div className="room-form">
