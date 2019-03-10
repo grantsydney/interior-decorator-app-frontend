@@ -13,18 +13,20 @@ const Nav = (props) => {
     props.logOut()
   }
 
+  const menuItemStyle = {
+    fontFamily: `'Sarabun', sans-serif`,
+    fontSize:'1.3em'
+  };
+
   return (
     <>
     {props.loggedIn ? (
    <Menu pointing secondary style={{ marginBottom: "0%"}}>
       <Fragment>
-        <Menu.Item style={{fontFamily: `'Sarabun', sans-serif`, fontSize:'1.3em'
-        }} as={NavLink} to="/profile" name="Profile" />
-        <Menu.Item style={{fontFamily: `'Sarabun', sans-serif`, fontSize:'1.3em'
-        }} as={NavLink} to="/RoomIndex" name="Your Rooms" />
+        <Menu.Item style={menuItemStyle} as={NavLink} to="/profile" name="Profile" />
+        <Menu.Item style={menuItemStyle} as={NavLink} to="/RoomIndex" name="Your Rooms" />
         <Menu.Menu position="right">
-            <Menu.Item style={{fontFamily: `'Sarabun', sans-serif`, fontSize:'1.3em'
-            }} name="Logout" onClick={()=>handleClick()}/>
+            <Menu.Item style={menuItemStyle} name="Logout" onClick={()=>handleClick()}/>
         </Menu.Menu>
       </Fragment>
   </Menu>
