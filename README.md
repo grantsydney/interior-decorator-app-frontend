@@ -17,15 +17,25 @@ These instructions will get you a copy of the project up and running on your loc
 * View inspiration for interior design of rooms
 
 ## Installing
-Backend (https://github.com/sg3957/interior-decorator-app-backend/tree/master)$ git clone https://github.com/sg3957/interior-decorator-app-backend.git
+Backend (https://github.com/sg3957/interior-decorator-app-backend/tree/master)
+
+$ git clone https://github.com/sg3957/interior-decorator-app-backend.git
+
 $ cd interior-decorator-app-backend
+
 $ bundle install
+
 $ rails s
 
 Frontend
+
+
 $ git clone https://github.com/sg3957/interior-decorator-app-frontend.git
+
 $ cd interior-decorator-app-frontend
+
 $ npm install 
+
 $ npm start
 
 
