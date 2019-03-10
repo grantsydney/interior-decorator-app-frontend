@@ -1,14 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Room extends Component {
+const Room = props => {
 
-render() {
-  return(
+  return (
     <div>
       <h1>Room</h1>
-      <h3>{this.props.room.name}</h3>
+      <h3>{props.room.name}</h3>
       <div>
-      {this.props.room.furnitures.map(f=>{
+      {props.room.furnitures.map(f=>{
         return <div key={f.id}>
 
           <p>{f.name}</p>
@@ -28,9 +27,6 @@ render() {
 
     </div>
   )
-}
-
-
 }
 
 export default Room;
